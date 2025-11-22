@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Dashboard — MME Portal</title>
+  <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body class="dashboard-body">
+  <header class="header">
+    <div class="header-left">
+      <button id="mobileMenuBtn" class="hamburger" aria-label="Open menu">☰</button>
+      <img src="images/best.png" alt="brand" class="logo" width="50" height="50" />
+      <div class="brand">
+        <div class="site-title">MME Students Portal</div>
+        <div class="site-sub">Materials &amp; Metallurgical Engineering</div>
+      </div>
+    </div>
+
+    <nav id="navMenu" class="nav-menu">
+      <a class="nav-link" href="dashboard.html">Home</a>
+      <a class="nav-link" href="#">Updates</a>
+      <a class="nav-link" href="#">Gallery</a>
+      <a class="nav-link" href="#">About</a>
+      <button id="logout" class="btn small danger">Logout</button>
+    </nav>
+  </header>
+
+  <main class="dashboard-main container-grid">
+    <section class="panel">
+      <div class="panel-head">
+        <h2>Student Profiles</h2>
+        <div class="panel-actions">
+          <button id="openAdd" class="btn small">+ Add</button>
+          <button id="importSample" class="btn small outline">Import sample</button>
+          <button id="clearStudents" class="btn small outline danger">Clear</button>
+        </div>
+      </div>
+
+      <div class="controls">
+        <input id="search" type="search" placeholder="Search students (name, email, matric)" />
+      </div>
+
+      <ul id="studentsList" class="students-list">
+        <li class="muted">Loading students…</li>
+      </ul>
+    </section>
+
+    <aside class="panel">
+      <div id="profile" class="profile-card">
+        <h3 class="panel-title">Selected Student</h3>
+        <div id="profileContent" class="profile-content muted"> Select a student to view profile. </div>
+      </div>
+
+      <div class="panel" style="margin-top:18px;">
+        <h3 class="panel-title">Result Checker</h3>
+        <form id="resultForm" class="form-compact">
+          <input id="resultMatric" placeholder="Matric number" required />
+          <input id="resultCourse" placeholder="Course code (optional)" />
+          <button type="submit" class="btn">Check Results</button>
+        </form>
+        <div id="resultOutput" class="muted" style="margin-top:12px;">Enter matric to search results.</div>
+      </div>
+
+      <div class="panel" style="margin-top:18px;">
+        <h3 class="panel-title">Admin Portal</h3>
+        <div class="admin-box">
+          <p class="small">Quick admin actions (dev)</p>
+          <button id="exportStudents" class="btn small outline">Export (console)</button>
+        </div>
+      </div>
+    </aside>
+  </main>
+
+  <!-- Add / Edit modal -->
+  <div id="modal" class="modal hidden" role="dialog" aria-modal="true">
+    <div class="modal-content">
+      <h3>Add / Edit Student</h3>
+      <form id="addStudentForm" class="form-compact">
+        <input id="stuName" placeholder="Full name" required />
+        <input id="stuEmail" type="email" placeholder="Email" required />
+        <input id="stuMat" placeholder="Matric number" />
+        <select id="stuLevel"><option>100</option><option>200</option><option>300</option><option>400</option></select>
+        <div class="modal-actions">
+          <button type="submit" class="btn">Save</button>
+          <button type="button" id="modalClose" class="btn outline">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script type="module" src="javas/app.js"></script>
+</body>
+</html>
