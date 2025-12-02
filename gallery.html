@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MME Department Gallery</title>
+
+<style>
+    body {
+        margin: 0;
+        font-family: "Segoe UI", sans-serif;
+        background: #f5f7fa;
+        color: #222;
+    }
+
+    header {
+        background: #003366;
+        color: white;
+        padding: 20px 0;
+        text-align: center;
+    }
+
+    header h1 {
+        margin: 0;
+        font-size: 32px;
+    }
+
+    .section-title {
+        margin: 40px 0 20px;
+        text-align: center;
+        font-size: 28px;
+        color: #003366;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .gallery-container {
+        width: 90%;
+        max-width: 1300px;
+        margin: auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 20px;
+        padding-bottom: 50px;
+    }
+
+    .gallery-item {
+        background: white;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        transition: transform 0.3s ease;
+    }
+
+    .gallery-item:hover {
+        transform: scale(1.03);
+    }
+
+    .gallery-item img {
+        width: 100%;
+        height: 220px;
+        object-fit: cover;
+        display: block;
+    }
+
+    .caption {
+        padding: 12px;
+        text-align: center;
+        font-size: 15px;
+        background: #fafafa;
+        color: #444;
+    }
+
+    footer {
+        background: #003366;
+        color: white;
+        padding: 15px;
+        text-align: center;
+        margin-top: 40px;
+    }
+</style>
+</head>
+<body>
+
+<header>
+    <h1>MME Department Gallery</h1>
+</header>
+
+<!-- ================= CERAMICS SECTION =================== -->
+<h2 class="section-title">Ceramics</h2>
+
+<div class="gallery-container">
+    <!-- Replace image paths with your own -->
+    <div class="gallery-item">
+        <img src="images/ceramic1.jpg" alt="Ceramics 1">
+        <div class="caption">Ceramics Practical Session</div>
+    </div>
+
+    <div class="gallery-item">
+        <img src="images/ceramic2.jpg" alt="Ceramics 2">
+        <div class="caption">Ceramics Lab Work</div>
+    </div>
+
+    <div class="gallery-item">
+        <img src="images/ceramic3.jpg" alt="Ceramics 3">
+        <div class="caption">Ceramics Equipment</div>
+    </div>
+</div>
+
+
+<!-- ================= ACHIEVEMENTS SECTION =================== -->
+<h2 class="section-title">Achievements</h2>
+
+<div class="gallery-container">
+
+    <div class="gallery-item">
+        <img src="images/award1.jpg" alt="Award 1">
+        <div class="caption">Best Graduating Students Award</div>
+    </div>
+
+    <div class="gallery-item">
+        <img src="images/project1.jpg" alt="Project">
+        <div class="caption">Final Year Project Showcase</div>
+    </div>
+
+    <div class="gallery-item">
+        <img src="images/IMG_20231108_230049_150.jpg" alt="Competition">
+        <div class="caption">MME Students representing MME in Engineering Competition</div>
+    </div>
+
+</div>
+
+
+<!-- ================= EXCURSION & TRIPS SECTION =================== -->
+<h2 class="section-title">Excursions & Trips</h2>
+
+<div class="gallery-container">
+
+    <div class="gallery-item">
+        <img src="images/IMG_3396.jpg" alt="Trip 1">
+        <div class="caption"> Visit to Shelter Clay</div>
+    </div>
+
+    <div class="gallery-item">
+        <img src="images/1 (1).png" alt="Trip 2">
+        <div class="caption">Visit to SEDI</div>
+    </div>
+
+    <div class="gallery-item">
+        <img src="images/GLASS.jpg" alt="Trip 3">
+        <div class="caption">Ceramics & glass</div>
+    </div>
+
+</div>
+
+<footer>
+    © 2025 MME Department — Federal University of Technology, Minna
+</footer>
+
+</body>
+</html>
