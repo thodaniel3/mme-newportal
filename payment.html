@@ -7,33 +7,55 @@
 
   <style>
     :root{--brown:#3a1e02}
-    *{box-sizing:border-box} body{margin:0;font-family:Inter,Arial,sans-serif;background:#f7f7f8}
+    *{box-sizing:border-box} 
+    body{margin:0;font-family:Inter,Arial,sans-serif;background:#f7f7f8}
+    
+    /* Header */
     .main-header{position:fixed;left:0;right:0;top:0;height:64px;background:var(--brown);color:#fff;display:flex;align-items:center;padding:8px 18px;z-index:999}
     .brand img{height:48px;border-radius:6px}
     .header-actions{margin-left:auto;display:flex;align-items:center;gap:10px}
     .search-box{display:none;background:#fff;padding:6px 10px;border-radius:8px}
-    main{padding:90px 18px 40px}
-    .panel{background:#fff;padding:16px;border-radius:10px;box-shadow:0 6px 18px rgba(8,15,29,0.04)}
-    label{display:block;margin:8px 0 4px}
-    input{width:100%;padding:10px;border-radius:8px;border:1px solid #e6e6e6}
-    .btn{background:var(--brown);color:#fff;border:none;padding:10px 14px;border-radius:8px;cursor:pointer;margin-top:10px}
-    footer{margin-top:18px}
-    .footer-img{width:100%;border-radius:8px}
+    
+    /* Mobile menu */
+    .mobile-menu{display:none;flex-direction:column;gap:10px;padding:12px;background:#fff;position:fixed;top:64px;left:0;right:0;box-shadow:0 4px 12px rgba(0,0,0,0.1)}
+    .mobile-menu a{text-decoration:none;color:#3a1e02;font-weight:500}
+    
+    /* Main content */
+    main{padding:90px 18px 40px;display:flex;justify-content:center}
+    .panel{background:#fff;padding:24px;border-radius:10px;box-shadow:0 6px 18px rgba(8,15,29,0.04);max-width:420px;width:100%}
+    
+    label{display:block;margin:12px 0 4px;font-weight:500}
+    input{width:100%;padding:10px;border-radius:8px;border:1px solid #e6e6e6;margin-bottom:10px}
+    .btn{background:var(--brown);color:#fff;border:none;padding:12px 14px;border-radius:8px;cursor:pointer;margin-top:10px;width:100%}
+    
+    /* Footer */
+    footer{margin-top:24px;text-align:center}
+    .footer-img{width:100%;border-radius:8px;margin-top:20px}
+    
+    /* Message */
+    #msg{margin-top:12px;color:#333;font-weight:500;text-align:center}
   </style>
 </head>
 <body>
+  <!-- Header -->
   <header class="main-header">
     <div class="brand">
       <img src="best3.png" alt="logo">
-      <div style="margin-left:8px"><strong>Payments</strong><div style="font-size:12px;opacity:.9">Departmental dues</div></div>
+      <div style="margin-left:8px">
+        <strong>Payments</strong>
+        <div style="font-size:12px;opacity:.9">Departmental dues</div>
+      </div>
     </div>
     <div class="header-actions">
       <span id="openSearch">🔍</span>
-      <div id="searchBox" class="search-box"><input id="searchInput" placeholder="Search payments..." /></div>
+      <div id="searchBox" class="search-box">
+        <input id="searchInput" placeholder="Search payments..." />
+      </div>
       <span id="hamburgerBtn" class="hamburger">☰</span>
     </div>
   </header>
 
+  <!-- Mobile Menu -->
   <nav id="mobileMenu" class="mobile-menu" aria-hidden="true">
     <a href="student-profile.html">Student Profile</a>
     <a href="admin.html">Admin</a>
@@ -43,27 +65,33 @@
     <a id="logout" href="#">Logout</a>
   </nav>
 
+  <!-- Main Content -->
   <main>
     <section class="panel" id="payPanel">
-      <h2>Make a Payment</h2>
-      <p class="muted">Use the form below to prepare payment details (Paystack integration placeholder).</p>
+      <h2>Pay Department Dues</h2>
+      <p class="muted">Amount: <strong>₦1,000</strong></p>
 
-      <label>Full name</label>
+      <label>Full Name</label>
       <input id="payerName" placeholder="Full name" />
 
-      <label>Matric number</label>
-      <input id="payerMat" placeholder="Matric number" />
+      <label>Matric Number / Student ID</label>
+      <input id="studentRef" placeholder="e.g. MME/2025/001">
 
-      <label>Amount (NGN)</label>
-      <input id="payerAmount" type="number" placeholder="Amount" />
+      <label>Email</label>
+      <input id="email" placeholder="student@example.com">
 
-      <button id="payNow" class="btn">Proceed to Paystack (placeholder)</button>
+      <button id="payBtn" class="btn">Pay ₦1,000</button>
+      <div id="msg"></div>
     </section>
-
-    <footer>
-      <img src="footer.PNG" alt="footer" class="footer-img">
-    </footer>
   </main>
+
+  <!-- Footer -->
+  <footer>
+    <img src="footer.PNG" alt="footer" class="footer-img">
+  </footer>
+
+  <!-- Paystack Inline -->
+  <script src="https://js.paystack.co/v2/inline.js"></script>
 
   <script>
     // UI toggles
@@ -71,24 +99,70 @@
       const sb = document.getElementById('searchBox');
       sb.style.display = sb.style.display === 'flex' ? 'none' : 'flex';
     });
+
     document.getElementById('hamburgerBtn').addEventListener('click', ()=> {
       const m = document.getElementById('mobileMenu');
       m.style.display = m.style.display === 'flex' ? 'none' : 'flex';
     });
 
-    // page search (filters the panel)
     document.getElementById('searchInput').addEventListener('input', ()=> {
       const q = document.getElementById('searchInput').value.trim().toLowerCase();
       const panel = document.getElementById('payPanel');
       panel.style.display = q === '' ? 'block' : (panel.innerText.toLowerCase().includes(q) ? 'block' : 'none');
     });
 
-    // pay placeholder
-    document.getElementById('payNow').addEventListener('click', ()=> {
-      alert('This is a placeholder. Integrate Paystack or another gateway to complete payments.');
+    document.getElementById('logout').addEventListener('click', e=>{
+      e.preventDefault();
+      localStorage.removeItem('mme_admin_signed_in');
+      window.location.href='index.html';
     });
 
-    document.getElementById('logout').addEventListener('click', e=>{ e.preventDefault(); localStorage.removeItem('mme_admin_signed_in'); window.location.href='index.html'; });
+    // Paystack payment
+    document.getElementById('payBtn').addEventListener('click', function () {
+      const name = document.getElementById('payerName').value || 'No Name';
+      const studentRef = document.getElementById('studentRef').value || 'no-ref';
+      const email = document.getElementById('email').value || 'student@example.com';
+
+      const amountKobo = 100000; // ₦1,000 in kobo
+
+      const handler = PaystackPop.setup({
+        key: 'pk_test_da5a8b3928f18ad2f5a047adc18b4f7b404355c8', // ← replace with your Paystack public key
+        email: email,
+        amount: amountKobo,
+        currency: 'NGN',
+        ref: 'DEPT-' + Date.now() + '-' + studentRef,
+        metadata: { custom_fields: [
+          { display_name: "Full Name", variable_name: "full_name", value: name },
+          { display_name: "Student Ref", variable_name: "student_ref", value: studentRef }
+        ]},
+        callback: function(response){
+          document.getElementById('msg').innerText = 'Payment done. Verifying...';
+
+          // Send reference to server to verify payment (implement /verify-payment on your server)
+          fetch('/verify-payment', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ reference: response.reference, studentRef, name })
+          })
+          .then(r => r.json())
+          .then(data => {
+            if (data.status === 'success') {
+              document.getElementById('msg').innerText = 'Payment verified. Thank you!';
+            } else {
+              document.getElementById('msg').innerText = 'Payment not verified. Contact admin.';
+            }
+          })
+          .catch(err => {
+            console.error(err);
+            document.getElementById('msg').innerText = 'Error verifying payment.';
+          });
+        },
+        onClose: function(){
+          document.getElementById('msg').innerText = 'Payment popup closed.';
+        }
+      });
+      handler.openIframe();
+    });
   </script>
 </body>
 </html>
