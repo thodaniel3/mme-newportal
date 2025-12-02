@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Payment — MME Portal</title>
+
+  <style>
+    :root{--brown:#3a1e02}
+    *{box-sizing:border-box} body{margin:0;font-family:Inter,Arial,sans-serif;background:#f7f7f8}
+    .main-header{position:fixed;left:0;right:0;top:0;height:64px;background:var(--brown);color:#fff;display:flex;align-items:center;padding:8px 18px;z-index:999}
+    .brand img{height:48px;border-radius:6px}
+    .header-actions{margin-left:auto;display:flex;align-items:center;gap:10px}
+    .search-box{display:none;background:#fff;padding:6px 10px;border-radius:8px}
+    main{padding:90px 18px 40px}
+    .panel{background:#fff;padding:16px;border-radius:10px;box-shadow:0 6px 18px rgba(8,15,29,0.04)}
+    label{display:block;margin:8px 0 4px}
+    input{width:100%;padding:10px;border-radius:8px;border:1px solid #e6e6e6}
+    .btn{background:var(--brown);color:#fff;border:none;padding:10px 14px;border-radius:8px;cursor:pointer;margin-top:10px}
+    footer{margin-top:18px}
+    .footer-img{width:100%;border-radius:8px}
+  </style>
+</head>
+<body>
+  <header class="main-header">
+    <div class="brand">
+      <img src="best3.png" alt="logo">
+      <div style="margin-left:8px"><strong>Payments</strong><div style="font-size:12px;opacity:.9">Departmental dues</div></div>
+    </div>
+    <div class="header-actions">
+      <span id="openSearch">🔍</span>
+      <div id="searchBox" class="search-box"><input id="searchInput" placeholder="Search payments..." /></div>
+      <span id="hamburgerBtn" class="hamburger">☰</span>
+    </div>
+  </header>
+
+  <nav id="mobileMenu" class="mobile-menu" aria-hidden="true">
+    <a href="student-profile.html">Student Profile</a>
+    <a href="admin.html">Admin</a>
+    <a href="admin-signin.html">Admin Sign In</a>
+    <a href="payment.html">Payment</a>
+    <a href="chat.html">Chat</a>
+    <a id="logout" href="#">Logout</a>
+  </nav>
+
+  <main>
+    <section class="panel" id="payPanel">
+      <h2>Make a Payment</h2>
+      <p class="muted">Use the form below to prepare payment details (Paystack integration placeholder).</p>
+
+      <label>Full name</label>
+      <input id="payerName" placeholder="Full name" />
+
+      <label>Matric number</label>
+      <input id="payerMat" placeholder="Matric number" />
+
+      <label>Amount (NGN)</label>
+      <input id="payerAmount" type="number" placeholder="Amount" />
+
+      <button id="payNow" class="btn">Proceed to Paystack (placeholder)</button>
+    </section>
+
+    <footer>
+      <img src="footer.PNG" alt="footer" class="footer-img">
+    </footer>
+  </main>
+
+  <script>
+    // UI toggles
+    document.getElementById('openSearch').addEventListener('click', ()=> {
+      const sb = document.getElementById('searchBox');
+      sb.style.display = sb.style.display === 'flex' ? 'none' : 'flex';
+    });
+    document.getElementById('hamburgerBtn').addEventListener('click', ()=> {
+      const m = document.getElementById('mobileMenu');
+      m.style.display = m.style.display === 'flex' ? 'none' : 'flex';
+    });
+
+    // page search (filters the panel)
+    document.getElementById('searchInput').addEventListener('input', ()=> {
+      const q = document.getElementById('searchInput').value.trim().toLowerCase();
+      const panel = document.getElementById('payPanel');
+      panel.style.display = q === '' ? 'block' : (panel.innerText.toLowerCase().includes(q) ? 'block' : 'none');
+    });
+
+    // pay placeholder
+    document.getElementById('payNow').addEventListener('click', ()=> {
+      alert('This is a placeholder. Integrate Paystack or another gateway to complete payments.');
+    });
+
+    document.getElementById('logout').addEventListener('click', e=>{ e.preventDefault(); localStorage.removeItem('mme_admin_signed_in'); window.location.href='index.html'; });
+  </script>
+</body>
+</html>

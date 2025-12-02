@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Staff — MME Portal</title>
+
+  <style>
+    :root{--brown:#3a1e02}
+    *{box-sizing:border-box} body{margin:0;font-family:Inter,Arial,sans-serif;background:#fafafa;color:#111}
+    .main-header{position:fixed;left:0;right:0;top:0;height:64px;background:var(--brown);color:#fff;display:flex;align-items:center;padding:8px 18px;z-index:999}
+    .brand img{height:48px;border-radius:6px}
+    .header-actions{margin-left:auto;display:flex;align-items:center;gap:10px}
+    .search-box{display:none;background:#fff;padding:6px 10px;border-radius:8px}
+    main{padding:90px 18px 40px}
+    .panel{background:#fff;padding:16px;border-radius:10px;box-shadow:0 6px 18px rgba(8,15,29,0.04);margin-bottom:12px}
+    .staff-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
+    .staff-card{background:#fff;padding:10px;border-radius:8px;text-align:center;border:1px solid #eee}
+    .staff-card img{width:100%;height:180px;object-fit:cover;border-radius:6px}
+    .btn{background:var(--brown);color:#fff;border:none;padding:8px 12px;border-radius:8px;cursor:pointer}
+    footer{margin-top:18px}
+    .footer-img{width:100%;border-radius:8px}
+  </style>
+</head>
+<body>
+  <header class="main-header">
+    <div class="brand">
+      <img src="best3.png" alt="logo">
+      <div style="margin-left:8px"><strong>Staff</strong><div style="font-size:12px;opacity:.9">MME Department Staff</div></div>
+    </div>
+    <div class="header-actions">
+      <span id="openSearch">🔍</span>
+      <div id="searchBox" class="search-box"><input id="searchInput" placeholder="Search staff..." /></div>
+      <span id="hamburgerBtn" class="hamburger">☰</span>
+    </div>
+  </header>
+
+  <nav id="mobileMenu" class="mobile-menu" aria-hidden="true">
+    <a href="student-profile.html">Student Profile</a>
+    <a href="admin.html">Admin</a>
+    <a href="admin-signin.html">Admin Sign In</a>
+    <a href="payment.html">Payment</a>
+    <a href="chat.html">Chat</a>
+    <a id="logout" href="#">Logout</a>
+  </nav>
+
+  <main>
+    <section class="panel">
+      <h2>Academic & Administrative Staff</h2>
+      <div class="staff-grid" id="staffGrid">
+        <!-- Sample staff cards; replace with real content -->
+        <div class="staff-card"><img src="best3.png" alt=""><h4>Prof. A. Example</h4><p>HOD (Prof.)</p></div>
+        <div class="staff-card"><img src="best3.png" alt=""><h4>Dr. B. Example</h4><p>Lecturer</p></div>
+        <div class="staff-card"><img src="best3.png" alt=""><h4>Mrs. C. Example</h4><p>Admin Officer</p></div>
+      </div>
+    </section>
+
+    <footer>
+      <img src="footer.PNG" alt="footer" class="footer-img">
+    </footer>
+  </main>
+
+  <script>
+    document.getElementById('openSearch').addEventListener('click', ()=> {
+      const sb=document.getElementById('searchBox'); sb.style.display = sb.style.display==='flex'?'none':'flex';
+    });
+    document.getElementById('hamburgerBtn').addEventListener('click', ()=> {
+      const m=document.getElementById('mobileMenu'); m.style.display = m.style.display==='flex'?'none':'flex';
+    });
+
+    // search staff
+    document.getElementById('searchInput').addEventListener('input', ()=> {
+      const q = document.getElementById('searchInput').value.trim().toLowerCase();
+      const cards = Array.from(document.querySelectorAll('.staff-card'));
+      cards.forEach(c => {
+        c.style.display = q === '' ? 'block' : ((c.innerText||'').toLowerCase().includes(q) ? 'block' : 'none');
+      });
+    });
+
+    document.getElementById('logout').addEventListener('click', e=>{ e.preventDefault(); localStorage.removeItem('mme_admin_signed_in'); window.location.href='index.html'; });
+  </script>
+</body>
+</html>

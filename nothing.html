@@ -1,0 +1,272 @@
+<!-- Save as: dashboard-C.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>MME Portal — Blue Minimal</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#eef6fb;
+      --panel:#ffffff;
+      --muted:#6b7a8a;
+      --primary:#0b63b7;
+      --accent:#0a4f93;
+      --sidebar-w:200px;
+      --header-h:78px;
+      --maxw:1180px;
+      --radius:10px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; font-family:"Inter", "Segoe UI", Arial; background:linear-gradient(180deg,var(--bg), #f7fbff);
+      color:#122; -webkit-font-smoothing:antialiased;
+    }
+    .main-header{
+      position:fixed; top:0; left:0; right:0; height:var(--header-h);
+      display:flex; align-items:center; gap:14px; padding:10px 18px;
+      background:linear-gradient(90deg,#ffffff, rgba(255,255,255,0.9)); border-bottom:1px solid rgba(10,10,10,0.03);
+      z-index:1200;
+    }
+
+
+
+
+    /* =========================
+   MOBILE MENU STYLES – FIXED
+   ========================= */
+.mobi-menu {
+    display: none;
+    position: fixed;
+    top: 80px;
+    right: 0;
+    width: 280px;
+    height: calc(100vh - 80px);
+    background: #ffffff;
+    flex-direction: column;
+    padding: 20px 0;
+    z-index: 3000;   /* increased so the menu appears ABOVE everything */
+    box-shadow: -5px 0 15px rgba(0,0,0,0.2);
+    overflow-y: auto;
+}
+
+.mobi-menu a {
+    color: #333;
+    text-decoration: none;
+    padding: 14px 25px;
+    margin: 0 15px 8px;
+    border-radius: 6px;
+    transition: background 0.3s ease;
+    font-weight: 500;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.mobi-menu a:hover {
+    background: #f0f0f0;
+}
+
+    .dept-logo{ width:52px; height:52px; border-radius:8px; object-fit:cover; box-shadow:0 6px 16px rgba(7,37,102,0.06); }
+    .brand .site-title{ font-size:18px; font-weight:700; color:var(--primary); }
+    .brand .site-sub{ font-size:12px; color:var(--muted); }
+
+    .nav-menu1{ margin-left:auto; display:flex; gap:12px; }
+    .nav-link{ text-decoration:none; color:var(--accent); font-weight:600; padding:8px 10px; border-radius:8px; }
+    .nav-link:hover{ background:rgba(11,99,183,0.06); }
+
+    #searchBox{ display:none; align-items:center; gap:8px; padding:6px 10px; border-radius:8px; border:1px solid rgba(10,30,60,0.06); }
+    #searchBox input{ outline:none; border:none; width:160px; }
+
+    .container{ max-width:var(--maxw); margin:calc(var(--header-h) + 18px) auto; display:flex; gap:22px; padding:0 18px; }
+    aside.dept-menu{ width:var(--sidebar-w); position:sticky; top:calc(var(--header-h)+18px); align-self:flex-start; background:var(--panel); padding:14px; border-radius:var(--radius); box-shadow:0 10px 30px rgba(8,40,80,0.04); border-left:6px solid var(--primary); }
+    .sidebar-links a{ display:block; padding:10px 12px; margin-bottom:8px; text-decoration:none; color:var(--primary); font-weight:700; border-radius:8px; }
+    .sidebar-links a:hover{ background:rgba(11,99,183,0.04); }
+
+    main.page { flex:1 1 0; min-width:0; }
+
+    .image-slider{ height:340px; border-radius:10px; overflow:hidden; background:linear-gradient(180deg,#dff0ff,#fff); box-shadow:0 10px 30px rgba(6,30,70,0.05); }
+    .image-slider .slide{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0; transition:opacity .6s ease; }
+    .image-slider .slide.active{ opacity:1; }
+
+    .panel{ background:var(--panel); padding:16px; border-radius:10px; margin-top:16px; box-shadow:0 8px 20px rgba(8,30,60,0.04); }
+    .panel-title{ color:var(--primary); font-size:18px; font-weight:800; margin-bottom:10px; }
+
+    .hod-section{ display:flex; gap:14px; align-items:flex-start; }
+    .wrap-img{ width:160px; height:160px; object-fit:cover; border-radius:8px; }
+
+    .mv-row{ display:flex; gap:12px; flex-wrap:wrap; margin-top:12px; }
+    .mv-col{ flex:1 1 320px; padding:12px; border-radius:8px; background:linear-gradient(180deg,#ffffff,#f7fbff); }
+
+    footer.mme-footer{ margin:26px auto 40px; max-width:var(--maxw); padding:28px; border-radius:10px; background:#022a56; color:#fff; }
+    .footer-logo{ width:130px; margin-bottom:8px; }
+
+    @media (max-width:980px){ aside.dept-menu{ display:none } .container{ padding:0 12px } .image-slider{ height:240px } }
+    @media (max-width:640px){ #searchBox input{ width:110px } }
+  </style>
+</head>
+<body>
+  <header class="main-header">
+    <img src="images/best.png" class="dept-logo" alt="logo">
+    <div class="brand">
+      <div class="site-title">MME Students Portal</div>
+      <div class="site-sub">Materials &amp; Metallurgical Engineering</div>
+    </div>
+
+    <nav class="nav-menu1">
+      <a class="nav-link" href="dashboard.html">Home</a>
+      <a class="nav-link" href="#">Updates</a>
+      <a class="nav-link" href="for.html">Gallery</a>
+      <a class="nav-link" href="#">About</a>
+    </nav>
+
+    <div id="searchBox" style="display:none;"><span class="material-icons">search</span><input id="searchInput" placeholder="Search..."></div>
+    <button id="openSearch" class="icon-btn" title="Search"><span class="material-icons">search</span></button>
+    <button id="hamburgerBtn" class="icon-btn" title="Menu"><span class="material-icons">menu</span></button>
+  </header>
+
+
+<!-- HAMBURGER MENU -->
+    <div id="mobileMenu" class="mobile-menu">
+        <a href="student-profile.html">Student Profile</a>
+        <a href="admin.html">Admin</a>
+        <a href="admin-signin.html">Admin Sign-in</a>
+        <a href="payment.html">Payment</a>
+        <a href="chat.html">Chat</a>
+        <a href="index.html" id="logout">Logout</a>
+    </div>
+
+
+
+
+  <div class="container">
+    <aside class="dept-menu" id="deptMenu">
+      <div style="font-weight:800; color:var(--primary); margin-bottom:8px;">MME Tools</div>
+      <nav class="sidebar-links">
+        <a href="#">Publication</a>
+        <a href="#">Research</a>
+        <a href="#">Staff</a>
+        <a href="#">Executives</a>
+        <a href="index.html" id="sidebarLogout">Logout</a>
+      </nav>
+    </aside>
+
+    <main class="page" id="mainContent">
+      <div class="panel">
+        <div class="image-slider" style="position:relative;">
+          <img src="images/b.jpg" class="slide active" alt="slide1">
+          <img src="images/a.png" class="slide" alt="slide2">
+          <img src="images/f.jpg" class="slide" alt="slide3">
+        </div>
+      </div>
+
+      <section class="panel">
+        <h2 class="panel-title">HOD's Biography</h2>
+        <div class="hod-section">
+          <img src="images/e.PNG" class="wrap-img" alt="HOD">
+          <div>
+            <h3 style="margin:0">Prof. Muriana</h3>
+            <p class="muted">Engr. Prof. Muriana Raheed Aremu joined the service of FUT Minna on the 9th of November 2005... (trimmed)</p>
+          </div>
+        </div>
+      </section>
+
+      <div class="mv-row">
+        <div class="mv-col panel">
+          <h3 class="panel-title">Our Mission</h3>
+          <p>To develop skilled engineers with strong analytical capacity, equipped with practical experience and ethical values.</p>
+        </div>
+        <div class="mv-col panel">
+          <h3 class="panel-title">Our Vision</h3>
+          <p>To be a leading department in materials research and education with a global outlook and local impact.</p>
+        </div>
+      </div>
+
+      <section class="panel" id="newsSection">
+        <h2 class="panel-title">Latest Announcements</h2>
+        <ul>
+          <li>2025 MME Symposium scheduled for March.</li>
+          <li>New laboratory equipment commissioned.</li>
+          <li>Student Industrial Training begins June.</li>
+        </ul>
+      </section>
+
+      <footer class="panel" style="margin-top:14px;">
+        <img src="best.PNG" alt="internal footer image" style="width:100%; border-radius:8px;">
+      </footer>
+    </main>
+  </div>
+
+  <footer class="mme-footer">
+    <div style="display:flex; gap:20px; flex-wrap:wrap; align-items:flex-start;">
+      <div>
+        <img src="images/footer.PNG" class="footer-logo" alt="logo">
+        <p style="max-width:260px;">Main Campus, Gidan Kwano, P.M.B 65, Minna, Niger State.</p>
+      </div>
+      <div>
+        <h4 style="margin:0 0 8px 0">Campus Life</h4>
+        <a href="#" style="color:#b8d8ff; display:block;">Students Representative Council</a>
+        <a href="#" style="color:#b8d8ff; display:block;">Sports/Clubs</a>
+      </div>
+    </div>
+    <div style="text-align:center; margin-top:18px; opacity:0.85;">© 2022 Federal University of Technology MINNA. All Rights Reserved.</div>
+  </footer>
+
+  <script type="module" src="javas/admin.js"></script>
+  <script>
+    // Toggle search & simple mobile menu
+    document.getElementById('openSearch')?.addEventListener('click', ()=> {
+      const sb = document.getElementById('searchBox');
+      sb.style.display = sb.style.display === 'flex' ? 'none' : 'flex';
+      if(sb.style.display === 'flex') document.getElementById('searchInput')?.focus();
+    });
+    document.getElementById('hamburgerBtn')?.addEventListener('click', ()=> {
+      const aside = document.querySelector('.dept-menu');
+      aside.style.display = aside.style.display === 'none' || !aside.style.display ? 'block' : 'none';
+    });
+    document.getElementById('sidebarLogout')?.addEventListener('click', (e)=> {
+      e.preventDefault(); try { window.doLogout?.(); } catch(err){ window.location.href='index.html'; }
+    });
+
+
+
+// =========================
+// FIXED HAMBURGER MENU FUNCTION
+// =========================
+const hamburgerBtn = document.getElementById('hamburgerBtn');
+const mobileMenu = document.getElementById('mobile-Menu');
+
+// OPEN / CLOSE MENU
+hamburgerBtn.addEventListener('click', function (event) {
+    event.stopPropagation();
+    mobileMenu.style.display = mobileMenu.style.display === 'flex' ? 'none' : 'flex';
+});
+
+// CLOSE WHEN CLICKING OUTSIDE
+document.addEventListener('click', function (event) {
+    const insideMenu = mobileMenu.contains(event.target);
+    const onHamburger = hamburgerBtn.contains(event.target);
+
+    if (!insideMenu && !onHamburger) {
+        mobileMenu.style.display = 'none';
+    }
+});
+
+// CLOSE WHEN CLICKING A MENU ITEM
+mobileMenu.addEventListener('click', function (event) {
+    if (event.target.tagName === 'A') {
+        mobileMenu.style.display = 'none';
+    }
+});
+
+
+
+    // Basic Prev/Next fallback
+    (function(){ const slides = document.querySelectorAll('.image-slider .slide'); if(!slides.length) return; let i=0;
+      setInterval(()=>{ slides[i].classList.remove('active'); i=(i+1)%slides.length; slides[i].classList.add('active'); }, 4500);
+    })();
+  </script>
+</body>
+</html>

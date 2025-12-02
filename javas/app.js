@@ -1,4 +1,19 @@
-// javas/app.js
+// =======================================
+// 5-SECOND VIDEO DELAY BEFORE FORM SHOWS
+// =======================================
+window.addEventListener("load", () => {
+  const loginContainer = document.getElementById("loginContainer");
+
+  if (loginContainer) {
+    loginContainer.classList.add("hidden");
+
+    // Show after 5 seconds (5000ms)
+    setTimeout(() => {
+      loginContainer.classList.remove("hidden");
+      loginContainer.classList.add("show");
+    }, 5000);
+  }
+});// javas/app.js
 // single module loaded by all pages
 
 // ====================== FIREBASE IMPORTS ======================
@@ -187,17 +202,26 @@ onAuthStateChanged(auth, async (user) => {
 });
 
 // ====================== LOGOUT ======================
-const logoutBtn = $("logout");
-if (logoutBtn) {
-  logoutBtn.addEventListener("click", async () => {
-    try {
-      await signOut(auth);
-      window.location.href = "index.html";
-    } catch (err) {
-      console.error("Sign out error:", err);
+// LOGOUT BUTTON FUNCTION
+document.getElementById('logout').addEventListener('click', async () => {
+  try {
+    // Supabase logout
+    const { error } = await supabase.auth.signOut();
+
+    if (error) {
+      console.error('Logout error:', error);
+      alert('Error logging out. Try again.');
+      return;
     }
-  });
-}
+
+    // Redirect to index.html after successful logout
+    window.location.href = "index.html";
+
+  } catch (err) {
+    console.error('Unexpected logout error:', err);
+    alert('Unexpected error. Try again.');
+  }
+});
 
 // ====================== ADD STUDENT (simple example) ======================
 const addStudentForm = $("addStudentForm");

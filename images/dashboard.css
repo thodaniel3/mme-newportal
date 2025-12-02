@@ -1,0 +1,272 @@
+/* css/dashboard.css
+   Dashboard + Admin styles with slider, sidebar menu, mission/vision, footer.
+*/
+
+/* ---------- Reset ---------- */
+* { box-sizing: border-box; }
+body, h1, h2, h3, p, ul, li, figure { margin: 0; padding: 0; }
+
+/* ---------- Body & header ---------- */
+body.dashboard-body {
+  margin: 0;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
+  background: #f7f7f8;
+  color: #111827;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+
+/* legacy header class (if used elsewhere) */
+.header, .header--glass {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 20px;
+  border-bottom: 1px solid rgba(20, 20, 20, 0.06);
+  backdrop-filter: blur(4px);
+}
+
+/* New FUTMINNA-style fixed header (primary header used by dashboard.html) */
+.main-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 999;
+  background: #3a1e02; /* dark brown */
+  color: white;
+  display: flex;
+  align-items: center;
+  padding: 10px 18px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+}
+
+/* header left */
+.header-left {
+  display:flex;
+  gap:12px;
+  align-items:center;
+}
+.logo, .dept-logo { border-radius: 6px; object-fit:cover; }
+.brand .site-title { font-weight: 700; font-size: 18px; color: white; }
+.brand .site-sub { font-size: 12px; color: rgba(255,255,255,0.85); margin-top:2px; }
+
+/* Top nav */
+.nav-menu { display:flex; gap:10px; align-items:center; }
+.nav-link { text-decoration:none; color:rgba(255,255,255,0.92); padding:8px 10px; border-radius:8px; }
+.nav-link:hover { background: rgba(255,255,255,0.06); }
+
+/* Buttons */
+.btn {
+  padding:8px 12px;
+  border-radius:10px;
+  border:none;
+  background:#3b82f6;
+  color:white;
+  cursor:pointer;
+  font-weight:700;
+}
+.btn.small { padding:6px 10px; font-size:13px; background:#4b5563; border-radius:8px; }
+.btn.outline { background:transparent; color:#333; border:1px solid #ddd; }
+.btn.danger, .btn.small.danger { background:#ef4444; }
+
+/* ---------- Layout grid ---------- */
+.container-grid {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 18px;
+  padding: 18px;
+  align-items:start;
+}
+
+/* Sidebar */
+.sidebar {
+  display:flex;
+  flex-direction:column;
+  gap: 16px;
+}
+.panel--sidebar {
+  position: sticky;
+  top: 16px;
+}
+
+/* Panels */
+.panel {
+  background:white;
+  border-radius:12px;
+  padding:14px;
+  box-shadow: 0 8px 28px rgba(8,15,29,0.04);
+}
+.panel-title { font-weight:700; font-size:16px; margin-bottom:10px; }
+
+/* Sidebar menu */
+.sidebar-menu summary {
+  list-style:none;
+  cursor:pointer;
+  font-weight:700;
+  padding:8px 0;
+}
+.sidebar-links {
+  margin-top:8px;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+.sidebar-links a {
+  text-decoration:none;
+  color:#0f172a;
+  padding:8px;
+  border-radius:8px;
+}
+.sidebar-links a:hover { background: rgba(59,130,246,0.08); }
+
+/* Main area */
+.main-area { display:flex; flex-direction:column; gap:16px; }
+
+/* Slider */
+/* Increased height by 35%: original 360px -> 360 * 1.35 = 486px */
+.slider-wrapper { position:relative; overflow:hidden; padding:0; }
+.image-slider { position:relative; height:486px; border-radius:10px; overflow:hidden; background:#ddd; }
+.image-slider .slide {
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  opacity:0;
+  transform:scale(1.02);
+  transition: opacity 1s ease, transform 8s ease;
+}
+.image-slider .slide.active { opacity:1; transform:scale(1); }
+
+/* slider controls */
+.slider-controls {
+  display:flex;
+  justify-content:center;
+  gap:8px;
+  margin-top:10px;
+}
+
+/* Info from admin */
+#adminInfoPanel { min-height:80px; }
+
+/* Mission & Vision (two-column) */
+.mission-vision {
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap:18px;
+  align-items:start;
+}
+.mission-vision .mv-col h3 { font-size:18px; margin-bottom:10px; font-weight:700; }
+.mission-vision .mv-col p { line-height:1.7; color:#111827; }
+
+/* Footer */
+.footer-panel { margin-top:6px; display:flex; justify-content:space-between; align-items:center; }
+.footer-inner { display:flex; justify-content:space-between; width:100%; align-items:center; gap:12px; }
+.brand-small { display:flex; gap:8px; align-items:center; }
+.socials { display:flex; gap:12px; }
+.social { text-decoration:none; font-weight:600; color:#111827; }
+
+/* Students list */
+.students-list { list-style:none; padding:0; margin:8px 0; max-height:420px; overflow:auto; }
+.students-list li { padding:10px; border-bottom:1px dashed #eee; display:flex; justify-content:space-between; align-items:center; }
+
+/* Profile card */
+.profile-card .panel-title { margin-bottom:8px; }
+
+/* Modal */
+.modal {
+  position: fixed;
+  inset: 0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background: rgba(0,0,0,0.45);
+  z-index:50;
+}
+.modal.hidden { display:none; }
+.modal-content {
+  background:white;
+  padding:18px;
+  border-radius:10px;
+  width:460px;
+  max-width:92%;
+}
+
+/* helpers */
+.muted { color:#6b7280; }
+.small { font-size:12px; }
+
+/* ---------- New Header / Mobile Menu / Dept Menu styles ---------- */
+
+/* Department left vertical menu (profile icon area) */
+.dept-menu {
+  position: fixed;
+  left: 0;
+  top: 65px; /* below header */
+  width: 85px;
+  padding: 10px;
+  background: transparent;
+  z-index: 900;
+}
+.dept-menu img { width:100%; border-radius:8px; display:block; }
+
+/* Mobile/hamburger menu (appears when toggled) */
+.mobile-menu {
+  position: fixed;
+  top: 65px;
+  right: 12px;
+  width: 230px;
+  background: #3a1e02;
+  color: white;
+  padding: 12px;
+  border-radius: 8px;
+  display: none;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 9999;
+}
+.mobile-menu a { color: white; text-decoration: none; padding: 8px 6px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+
+/* search box inside header */
+.search-box {
+  display: none;
+  background: white;
+  padding: 6px 10px;
+  border-radius: 8px;
+}
+.search-box input { border: none; outline: none; font-size: 15px; }
+
+/* highlighted search result */
+.highlight { background: #fff7b2; padding: 2px 4px; border-radius: 3px; }
+
+/* page content: offset to make room for fixed header and left dept-menu */
+.page-content {
+  margin-top: 110px;
+  margin-left: 100px; /* room for dept-menu column */
+  padding: 20px;
+}
+
+/* responsive layout tweaks */
+@media (max-width: 1000px) {
+  .container-grid { grid-template-columns: 1fr; padding:12px; }
+  .mission-vision { grid-template-columns: 1fr; }
+  .image-slider { height:220px; }
+  .sidebar { order:2; }
+  .main-area { order:1; }
+  .dept-menu { display:none; }
+  .page-content { margin-left: 0; margin-top: 95px; }
+}
+
+/* Very small screens adjustments */
+@media (max-width: 420px) {
+  .image-slider { height:160px; }
+  .nav-menu { display:none; } /* mobile: use hamburger */
+  .mobile-menu { right: 6px; width: 200px; }
+  .page-content { padding: 12px; margin-top: 88px; }
+}
+
+/* ---------- accessibility & focus states ---------- */
+a:focus, button:focus, input:focus { outline: 3px solid rgba(59,130,246,0.18); outline-offset: 2px; }
+
+/* End of dashboard.css */

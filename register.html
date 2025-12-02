@@ -6,15 +6,24 @@
   <title>Register — MME Portal</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
-  <div class="container">
-    <h2 class="title">Create an Account</h2>
+
+  <video autoplay muted loop id="bgVideo">
+    <source src="images/vid.mp4" type="video/mp4">
+  </video>
+
+  <div class="auth-card">
+    <h2 class="title">Create Account</h2>
+    <p class="subtitle">Join the MME Portal</p>
 
     <form id="registerForm" class="form-box">
-      <input type="email" id="email" placeholder="Email" required>
-      <input type="password" id="password" placeholder="Password" required>
-      <p class="bottom-text small">Password should include upper & lower case letters.</p>
-      <button type="submit">Sign Up</button>
+      <input type="email" id="email" placeholder="Email address" required>
+      <input type="password" id="password" placeholder="Create password" required>
+
+      <p class="note small">Use a strong password with upper/lowercase letters.</p>
+
+      <button type="submit" class="btn-primary">Sign Up</button>
     </form>
 
     <p class="bottom-text">

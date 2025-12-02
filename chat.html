@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Chat — MME Portal</title>
+
+  <style>
+    :root{--brown:#3a1e02}
+    *{box-sizing:border-box} body{margin:0;font-family:Inter,Arial,sans-serif;background:#f8fafb}
+    .main-header{position:fixed;left:0;right:0;top:0;height:64px;background:var(--brown);color:#fff;display:flex;align-items:center;padding:8px 18px;z-index:999}
+    .brand img{height:48px;border-radius:6px}
+    .header-actions{margin-left:auto;display:flex;align-items:center;gap:10px}
+    .search-box{display:none;background:#fff;padding:6px 10px;border-radius:8px}
+    main{padding:90px 18px 40px}
+    .panel{background:#fff;padding:16px;border-radius:10px;box-shadow:0 6px 18px rgba(8,15,29,0.04)}
+    #messages{max-height:360px;overflow:auto;border-radius:8px;padding:8px;background:#fbfbfb;margin-top:12px}
+    .msg{padding:10px;border-bottom:1px dashed #eee}
+    input, textarea{width:100%;padding:10px;border-radius:8px;border:1px solid #e6e6e6}
+    .btn{background:var(--brown);color:#fff;border:none;padding:10px 14px;border-radius:8px;cursor:pointer;margin-top:8px}
+    footer{margin-top:18px}
+    .footer-img{width:100%;border-radius:8px}
+  </style>
+</head>
+<body>
+  <header class="main-header">
+    <div class="brand">
+      <img src="best3.png" alt="logo">
+      <div style="margin-left:8px"><strong>Chat</strong><div style="font-size:12px;opacity:.9">MME Student Chat</div></div>
+    </div>
+
+    <div class="header-actions">
+      <span id="openSearch">🔍</span>
+      <div id="searchBox" class="search-box"><input id="searchInput" placeholder="Search messages..." /></div>
+      <span id="hamburgerBtn" class="hamburger">☰</span>
+    </div>
+  </header>
+
+  <nav id="mobileMenu" class="mobile-menu" aria-hidden="true">
+    <a href="student-profile.html">Student Profile</a>
+    <a href="admin.html">Admin</a>
+    <a href="admin-signin.html">Admin Sign In</a>
+    <a href="payment.html">Payment</a>
+    <a href="chat.html">Chat</a>
+    <a id="logout" href="#">Logout</a>
+  </nav>
+
+  <main>
+    <section class="panel">
+      <h3>Send Message</h3>
+      <form id="chatForm" style="display:grid;gap:8px;max-width:720px">
+        <input id="fromName" placeholder="Your name or matric" required />
+        <input id="to" placeholder="To (optional)" />
+        <textarea id="body" placeholder="Message" rows="4" required></textarea>
+        <div>
+          <button class="btn" type="submit">Send</button>
+        </div>
+      </form>
+
+      <div id="messages" class="muted">
+        <!-- messages populated here -->
+      </div>
+    </section>
+
+    <footer>
+      <img src="footer.PNG" alt="footer" class="footer-img">
+    </footer>
+  </main>
+
+  <script>
+    // DOM
+    const chatGet = () => JSON.parse(localStorage.getItem('mme_chat_messages')||'[]');
+    const chatSave = (m) => { const arr = chatGet(); arr.push(m); localStorage.setItem('mme_chat_messages', JSON.stringify(arr)); }
+    const listEl = document.getElementById('messages');
+
+    function render(){
+      const msgs = chatGet();
+      if (!msgs.length) { listEl.innerHTML = '<div class="muted">No messages yet.</div>'; return; }
+      listEl.innerHTML = msgs.slice().reverse().map(m => `<div class="msg"><strong>${m.from}</strong> <small style="color:#666">to ${m.to||'All'}</small><div style="margin-top:6px">${m.body}</div><div style="font-size:11px;color:#999;margin-top:6px">${new Date(m.timestamp).toLocaleString()}</div></div>`).join('');
+    }
+
+    document.getElementById('chatForm').addEventListener('submit', e=>{
+      e.preventDefault();
+      const from = document.getElementById('fromName').value.trim();
+      const to = document.getElementById('to').value.trim();
+      const body = document.getElementById('body').value.trim();
+      if(!from||!body) return alert('Please add name and message');
+      chatSave({id:Date.now(),from,to,body,timestamp:Date.now()});
+      e.target.reset(); render();
+    });
+
+    render();
+
+    // header interactions
+    document.getElementById('openSearch').addEventListener('click', ()=> {
+      const sb = document.getElementById('searchBox');
+      sb.style.display = sb.style.display === 'flex' ? 'none' : 'flex';
+    });
+    document.getElementById('hamburgerBtn').addEventListener('click', ()=> {
+      const m = document.getElementById('mobileMenu');
+      m.style.display = m.style.display === 'flex' ? 'none' : 'flex';
+    });
+
+    // search messages (filter)
+    document.getElementById('searchInput').addEventListener('input', ()=> {
+      const q = document.getElementById('searchInput').value.trim().toLowerCase();
+      const msgs = chatGet();
+      const filtered = msgs.filter(m => (m.from+m.to+m.body).toLowerCase().includes(q));
+      if(!filtered.length) { listEl.innerHTML = '<div class="muted">No matching messages.</div>'; return; }
+      listEl.innerHTML = filtered.slice().reverse().map(m => `<div class="msg"><strong>${m.from}</strong> <small style="color:#666">to ${m.to||'All'}</small><div style="margin-top:6px">${m.body}</div><div style="font-size:11px;color:#999;margin-top:6px">${new Date(m.timestamp).toLocaleString()}</div></div>`).join('');
+    });
+
+    document.getElementById('logout').addEventListener('click', e=>{ e.preventDefault(); localStorage.removeItem('mme_admin_signed_in'); window.location.href='index.html'; });
+  </script>
+</body>
+</html>

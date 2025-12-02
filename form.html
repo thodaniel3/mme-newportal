@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>MME Student Form</title>
+
+  <!-- Professional Blue Background + Form Redesign -->
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: linear-gradient(135deg, #eeecec, #f3bebe);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    /* Form Container */
+    .mme-form-container {
+      width: 90%;
+      max-width: 700px;
+      background: #ffffff;
+      margin-top: 50px;
+      padding: 35px;
+      border-radius: 14px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.20);
+      animation: fadeIn 0.8s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Title */
+    .title {
+      text-align: center;
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 25px;
+      color: #1f0101;
+      letter-spacing: 0.5px;
+    }
+
+    /* Inputs & Select */
+    .form-box input,
+    .form-box select,
+    .form-box textarea {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0 18px 0;
+      border-radius: 6px;
+      border: 1px solid #ccd5e0;
+      font-size: 15px;
+      transition: 0.2s;
+    }
+
+    .form-box input:focus,
+    .form-box select:focus,
+    .form-box textarea:focus {
+      border-color: #2c0214;
+      outline: none;
+      box-shadow: 0 0 5px rgba(83, 6, 6, 0.4);
+    }
+
+    label.muted-label {
+      font-size: 13px;
+      color: #555;
+      margin-bottom: -5px;
+      display: block;
+      font-weight: 600;
+    }
+
+    /* Submit Button */
+    .form-box button {
+      width: 100%;
+      padding: 14px;
+      background: #220101;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 17px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.25s ease-in-out;
+    }
+
+    .form-box button:hover {
+      background: #250101;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    }
+
+    /* Success & Error Messages */
+    .success-message {
+      background-color: #d4edda;
+      color: #155724;
+      padding: 12px;
+      border-radius: 4px;
+      margin-bottom: 20px;
+      border: 1px solid #c3e6cb;
+      text-align: center;
+      font-weight: bold;
+      display: none;
+    }
+
+    .error-text {
+      color: #dc3545;
+      text-align: center;
+      font-size: 14px;
+      margin-bottom: 15px;
+    }
+
+    button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Main Form Container -->
+  <div class="mme-form-container">
+
+    <div class="title">MME Student Information Form</div>
+
+    <!-- Success Message -->
+    <div id="successMsg" class="success-message">✔ Form submitted successfully!</div>
+
+    <form id="mmeForm" class="form-box" enctype="multipart/form-data" autocomplete="off">
+
+      <!-- Full name -->
+      <input id="fullName" type="text" placeholder="Full name" required>
+
+      <!-- Matric number -->
+      <input id="matric" type="text" placeholder="Matric number" required>
+
+      <!-- Date of birth -->
+      <label class="muted-label">Date of birth</label>
+      <input id="dob" type="date" required>
+
+      <!-- Gender -->
+      <select id="gender" required>
+        <option value="">Select gender</option>
+        <option>Male</option>
+        <option>Female</option>
+        <option>Other</option>
+      </select>
+
+      <!-- Phone -->
+      <input id="phone" type="tel" placeholder="Phone number" required>
+
+      <!-- Level -->
+      <select id="level" required>
+        <option value="">Select level</option>
+        <option>100</option>
+        <option>200</option>
+        <option>300</option>
+        <option>400</option>
+        <option>500</option>
+      </select>
+
+      <!-- State of origin -->
+      <select id="state" required>
+        <option value="">Select state of origin</option>
+        <option>Abia</option>
+        <option>Adamawa</option>
+        <option>Akwa Ibom</option>
+        <option>Anambra</option>
+        <option>Bauchi</option>
+        <option>Bayelsa</option>
+        <option>Benue</option>
+        <option>Borno</option>
+        <option>Cross River</option>
+        <option>Delta</option>
+        <option>Ebonyi</option>
+        <option>Edo</option>
+        <option>Ekiti</option>
+        <option>Enugu</option>
+        <option>FCT Abuja</option>
+        <option>Gombe</option>
+        <option>Imo</option>
+        <option>Jigawa</option>
+        <option>Kaduna</option>
+        <option>Kano</option>
+        <option>Katsina</option>
+        <option>Kebbi</option>
+        <option>Kogi</option>
+        <option>Kwara</option>
+        <option>Lagos</option>
+        <option>Nasarawa</option>
+        <option>Niger</option>
+        <option>Ogun</option>
+        <option>Ondo</option>
+        <option>Osun</option>
+        <option>Oyo</option>
+        <option>Plateau</option>
+        <option>Rivers</option>
+        <option>Sokoto</option>
+        <option>Taraba</option>
+        <option>Yobe</option>
+        <option>Zamfara</option>
+      </select>
+
+      <!-- Hobbies -->
+      <input id="hobbies" type="text" placeholder="Hobbies (comma separated)" required>
+
+      <!-- Reality -->
+      <textarea id="reality" rows="3" maxlength="200"
+        placeholder="In 20 words, how has being an MME student shaped your reality?" required></textarea>
+
+      <!-- Comments -->
+      <textarea id="comments" rows="3" placeholder="Comments (optional)"></textarea>
+
+      <!-- Passport -->
+      <label class="muted-label">Upload passport (optional) — max 20 KB</label>
+      <input id="passport" type="file" accept="image/*">
+
+      <!-- Error -->
+      <p id="errorMsg" class="error-text"></p>
+
+      <button type="submit" id="submitBtn">Submit</button>
+    </form>
+  </div>
+
+  <script type="module" src="javas/apps.js"></script>
+</body>
+</html>

@@ -1,0 +1,161 @@
+/* === GENERAL BODY STYLE === */
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: url("../images/love.png") no-repeat center center fixed;
+  background-size: cover;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* changed from center */
+  padding-top: 40px; /* adds the space you wanted */
+}
+
+
+
+/* Dashboard override */
+body.no-bg {
+  background: #f5f5f5;
+  display: block;
+  padding-top: 0;
+}
+
+/* === CONTAINER FOR FORM === */
+.container {
+  width: 100%;
+  max-width: 300px; /* wider so 'Full name' appears clearly */
+  text-align: center;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 25px rgba(0,0,0,0.25);
+}
+
+/* Page title */
+.title {
+  margin-bottom: 20px;
+  color: #333;
+  font-size: 26px;
+  font-weight: bold;
+}
+
+/* === FORM ITEMS === */
+.form-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.remember-details input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  margin: 0; /* removes any browser default indentation */
+  cursor: pointer;
+}.remember-details {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* keep everything left */
+  width: 100%;                /* stretch full width */
+  margin-left: 0;             /* ensure no indentation */
+  padding-left: 0;
+  gap: 6px;
+  font-size: 14px;
+  color: #333;
+}
+
+.remember-details input[type="checkbox"] {
+  margin: 0;  /* remove browser default left margin */
+  cursor: pointer;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Input, select, textarea */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="tel"],
+input[type="date"],
+select,
+textarea {
+  width: 95%;
+  padding: 12px;
+  margin: 8px 0;
+  border: 1px solid #999;
+  border-radius: 8px;
+  font-size: 15px;
+  box-sizing: border-box;
+  transition: 0.2s;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: #e91e63;
+  outline: none;
+}
+
+button {
+  width: 95%;
+  background-color: #e91e63;
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 17px;
+  margin-top: 10px;
+  transition: 0.2s;
+}
+
+button:hover {
+  background-color: #c2185b;
+}
+
+.small { font-size: 13px; }
+
+.muted-label {
+  width: 95%;
+  text-align: left;
+  font-size: 13px;
+  color: #666;
+  margin-top: 6px;
+}
+
+.error-text {
+  color: #c62828;
+  font-size: 14px;
+  margin: 6px 0;
+}
+
+/* Textarea */
+textarea {
+  resize: vertical;
+  min-height: 60px;
+}
+
+/* Mobile adjustments */
+@media (max-width: 640px) {
+  .container {
+    padding: 16px;
+    border-radius: 8px;
+  }
+
+  button {
+    font-size: 15px;
+  }
+}

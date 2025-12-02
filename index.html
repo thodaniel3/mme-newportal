@@ -6,32 +6,37 @@
   <title>Login — MME Portal</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
-  <div class="container">
-    <h2 class="title">Login</h2>
+
+  <!-- Background video -->
+  <video autoplay muted loop id="bgVideo">
+    <source src="images/vid.mp4" type="video/mp4">
+  </video>
+
+  <!-- Login form container (hidden first) -->
+  <div class="auth-card hidden" id="loginContainer">
+    <h2 class="title">Welcome Back</h2>
+    <p class="subtitle">Sign in to continue</p>
 
     <form id="loginForm" class="form-box">
-      <input type="email" id="loginEmail" placeholder="Email" required>
+      <input type="email" id="loginEmail" placeholder="Email address" required>
       <input type="password" id="loginPassword" placeholder="Password" required>
 
-      <label class="remember">
-        <input type="checkbox" id="rememberMe"> Remember me
+      <label class="remember-details">
+        <input type="checkbox" id="rememberMe">
+        <span>Remember me</span>
       </label>
 
-      <button type="submit">Login</button>
+      <button type="submit" class="btn-primary">Login</button>
     </form>
 
     <p class="bottom-text">
-      Don’t have an account? <a href="register.html">Register</a><br>
-      <a href="forgot-password.html" id="forgotLink">Forgot Password?</a>
+      Don't have an account?. <a href="register.html">Register</a><br>
+      <a class="link-light" href="forgot-password.html">Forgot Password?</a>
     </p>
   </div>
 
   <script type="module" src="javas/app.js"></script>
 </body>
 </html>
-
-
-
-
-ugculcdlcgjgchjkhcccv;.cghu

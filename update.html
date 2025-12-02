@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Department Updates</title>
+
+<style>
+    body { background: #1e1e1e; margin: 0; color: #fff; font-family: "Segoe UI"; }
+    header { background: #222; padding: 20px; text-align: center; color: #ffb74d; font-size: 28px; font-weight: bold; }
+
+    .update-box {
+        background: #2b2b2b;
+        margin: 20px auto;
+        width: 92%;
+        max-width: 750px;
+        padding: 20px;
+        border-radius: 10px;
+        animation: fadeIn .4s ease;
+    }
+    img { width: 100%; margin-top: 10px; border-radius: 10px; }
+    .date { color: #ffab91; font-size: 14px; }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+</style>
+</head>
+
+<body>
+
+<header>Department Updates</header>
+<div id="updates"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+
+// ✅ FIXED — use "client", do NOT overwrite supabase global object
+const client = supabase.createClient(
+    "https://ldakeveujleriwunzyfe.supabase.co",
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxkYWtldmV1amxlcml3dW56eWZlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM5Mjk0ODQsImV4cCI6MjA3OTUwNTQ4NH0.kkIHAMcCxe8M0xH0YPMo9AM-Ntax3NSgObyFRrqSSd4"
+);
+
+async function loadUpdates() {
+
+    const { data, error } = await client
+        .from("updates")
+        .select("*")
+        .order("created_at", { ascending: false });
+
+    if (error) {
+        console.error(error);
+        document.getElementById("updates").innerHTML = "Error loading updates.";
+        return;
+    }
+
+    let html = "";
+    data.forEach(post => {
+        html += `
+            <div class="update-box">
+                <h2>${post.title}</h2>
+                <p class="date">${new Date(post.created_at).toLocaleString()}</p>
+                <p>${post.content}</p>
+                ${post.image_url ? `<img src="${post.image_url}">` : ""}
+            </div>
+        `;
+    });
+
+    document.getElementById("updates").innerHTML = html;
+}
+
+loadUpdates();
+
+</script>
+
+</body>
+</html>

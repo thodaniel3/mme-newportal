@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Admin Panel — Post Updates</title>
+
+<style>
+    body { font-family: "Segoe UI", sans-serif; background: #1e1e1e; margin: 0; color: #fff; }
+    header { background: #222; padding: 20px; text-align: center; font-size: 28px; color: #ffb74d; font-weight: bold; }
+    
+    .container {
+        width: 90%; max-width: 850px; margin: 25px auto;
+        background: #2b2b2b; padding: 25px; border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.4);
+    }
+
+    label { font-weight: bold; margin-top: 15px; display: block; }
+    input, textarea {
+        width: 100%; padding: 12px; margin-top: 6px;
+        background: #3a3a3a; border: none; color: #fff;
+        border-radius: 6px;
+    }
+
+    button {
+        width: 100%; padding: 14px; margin-top: 20px;
+        background: #ff7043; border: none; color: #fff;
+        font-size: 17px; border-radius: 6px;
+        cursor: pointer; transition: 0.3s;
+    }
+    button:hover { background: #ff5722; }
+
+    .post-card {
+        background: #333; padding: 20px; border-radius: 10px;
+        margin-top: 20px; box-shadow: 0 0 5px rgba(0,0,0,0.3);
+    }
+    img { width: 100%; border-radius: 10px; margin-top: 10px; }
+
+    .delete-btn {
+        background: #c62828; margin-top: 10px; font-size: 15px;
+    }
+    .delete-btn:hover { background: #e53935; }
+
+    #successMsg { color: #4caf50; display: none; margin-top: 10px; }
+    #errorMsg { color: #ff5252; margin-top: 10px; }
+</style>
+</head>
+<body>
+
+<header>Admin Dashboard</header>
+
+<div class="container">
+    <h2>Create New Update</h2>
+
+    <div id="errorMsg"></div>
+    <div id="successMsg">Update posted successfully!</div>
+
+    <label>Title</label>
+    <input type="text" id="title">
+
+    <label>Message</label>
+    <textarea id="content" rows="5"></textarea>
+
+    <label>Choose Image</label>
+    <input type="file" id="image">
+
+    <button id="submitBtn">Post Update</button>
+</div>
+
+<div class="container">
+    <h2>Previous Updates</h2>
+    <div id="updateList">Loading...</div>
+</div>
+
+<script type="module">
+import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
+
+const supabase = createClient(
+    "https://ldakeveujleriwunzyfe.supabase.co",
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxkYWtldmV1amxlcml3dW56eWZlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM5Mjk0ODQsImV4cCI6MjA3OTUwNTQ4NH0.kkIHAMcCxe8M0xH0YPMo9AM-Ntax3NSgObyFRrqSSd4"
+);
+
+// Submit Button
+document.getElementById("submitBtn").onclick = async () => {
+    const title = document.getElementById("title").value.trim();
+    const content = document.getElementById("content").value.trim();
+    const imageFile = document.getElementById("image").files[0];
+
+    if (!title || !content) {
+        errorMsg.textContent = "Please fill all fields.";
+        return;
+    }
+
+    let imageUrl = "";
+
+    // Upload image
+    if (imageFile) {
+        const fileName = `${Date.now()}-${imageFile.name}`;
+        const { error: uploadError } = await supabase.storage
+            .from("updates-images")
+            .upload(fileName, imageFile);
+
+        if (uploadError) {
+            errorMsg.textContent = "Image upload failed!";
+            return;
+        }
+
+        const { data: urlData } = supabase.storage
+            .from("updates-images")
+            .getPublicUrl(fileName);
+
+        imageUrl = urlData.publicUrl;
+    }
+
+    // Insert post
+    const { error } = await supabase.from("updates").insert([
+        { title, content, image_url: imageUrl }
+    ]);
+
+    if (error) {
+        errorMsg.textContent = "Error saving update.";
+        return;
+    }
+
+    successMsg.style.display = "block";
+    document.getElementById("title").value = "";
+    document.getElementById("content").value = "";
+    document.getElementById("image").value = "";
+
+    loadUpdates();
+};
+
+// Load updates
+async function loadUpdates() {
+    const { data } = await supabase
+        .from("updates")
+        .select("*")
+        .order("created_at", { ascending: false });
+
+    const div = document.getElementById("updateList");
+    div.innerHTML = "";
+
+    data.forEach(post => {
+        const card = document.createElement("div");
+        card.className = "post-card";
+
+        card.innerHTML = `
+            <h3>${post.title}</h3>
+            <p>${post.content}</p>
+            ${post.image_url ? `<img src="${post.image_url}">` : ""}
+            <button class="delete-btn" onclick="deletePost('${post.id}', '${post.image_url}')">Delete</button>
+        `;
+
+        div.appendChild(card);
+    });
+}
+
+// Delete post
+window.deletePost = async (id, imageUrl) => {
+    if (!confirm("Delete this post?")) return;
+
+    // Extract file name from URL
+    const fileName = imageUrl ? imageUrl.split("/").pop() : null;
+
+    if (fileName) {
+        await supabase.storage.from("updates-images").remove([fileName]);
+    }
+
+    await supabase.from("updates").delete().eq("id", id);
+    loadUpdates();
+};
+
+loadUpdates();
+</script>
+
+</body>
+</html>

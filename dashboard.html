@@ -3,92 +3,779 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Dashboard — MME Portal</title>
-  <link rel="stylesheet" href="css/dashboard.css">
+  <title>MME Department Dashboard</title>
+
+  <!-- Material Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <style>
+    /* =========================
+       GLOBAL & TYPOGRAPHY
+       ========================= */
+    :root{
+      --accent-brown:#110901;
+      --soft-bg:#faf8f8;
+      --muted:#6b6b6b;
+      --content-max-width:1100px;
+      --sidebar-width:180px;
+      --header-height:80px; /* used by JS too */
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: "Segoe UI", Roboto, Arial, Helvetica, sans-serif;
+      -webkit-font-smoothing:antialiased;
+      background:#f5f5f7;
+      color:#222;
+      line-height:1.5;
+    }
+    a{color:inherit}
+
+
+
+
+
+
+
+        /* =========================
+           GLOBAL STYLES
+           ========================= */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f7;
+            color: #222;
+            line-height: 1.5;
+        }
+
+        /* =========================
+           HEADER STYLES
+           ========================= */
+        .main-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 18px;
+            background: #110901;
+            color: #fff;
+            z-index: 1100;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.18);
+        }
+
+        .brand {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .site-title {
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .site-sub {
+            font-size: 12px;
+            opacity: .85;
+            margin-top: 2px;
+        }
+
+        /* =========================
+           HAMBURGER ICON
+           ========================= */
+        .hamburger {
+            cursor: pointer;
+            font-size: 30px;
+            color: white;
+            z-index: 1200;
+        }
+
+        /* =========================
+           MOBILE MENU STYLES
+           ========================= */
+        .mobi-menu {
+            display: none;
+            position: fixed;
+            top: 80px;
+            right: 0;
+            width: 280px;
+            height: calc(100vh - 80px);
+            background: #fff;
+            flex-direction: column;
+            padding: 20px 0;
+            z-index: 1100;
+            box-shadow: -5px 0 15px rgba(0,0,0,0.2);
+            overflow-y: auto;
+        }
+
+        .mobi-menu a {
+            color: #333;
+            text-decoration: none;
+            padding: 14px 25px;
+            margin: 0 15px 8px;
+            border-radius: 6px;
+            transition: background 0.3s ease;
+            font-weight: 500;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .mobi-menu a:hover {
+            background: #f0f0f0;
+        }
+
+        .mobi-menu hr {
+            margin: 15px 20px;
+            border: none;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        /* =========================
+           CONTENT AREA
+           ========================= */
+        .page-content {
+            margin-top: 100px;
+            padding: 20px;
+            max-width: 1100px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .panel {
+            background: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .panel-title {
+            font-size: 20px;
+            font-weight: 800;
+            color: #2a1508;
+            margin-bottom: 15px;
+        }
+
+        /* =========================
+           RESPONSIVE STYLES
+           ========================= */
+        @media (max-width: 720px) {
+            .mobi-menu {
+                width: 100%;
+            }
+        }
+    
+
+
+
+
+
+
+
+
+
+
+    /* =========================
+       HEADER (fixed)
+       ========================= */
+    .main-header{
+      position:fixed;
+      top:0;left:0;right:0;
+      height:var(--header-height);
+      display:flex;
+      align-items:center;
+      gap:12px;
+      padding:10px 18px;
+      background:var(--accent-brown);
+      color:#fff;
+      z-index:1100;
+      box-shadow:0 6px 18px rgba(0,0,0,0.18);
+    }
+    .dept-logo{ width:50px; height:50px; border-radius:8px; object-fit:cover; }
+    .brand .site-title{ font-weight:700; font-size:18px; }
+    .brand .site-sub{ font-size:12px; opacity:.85; margin-top:2px; }
+
+.nav-menu1 {
+    display: flex;
+    gap: 15px; /* spacing between links */
+    align-items: center;
+}
+
+.nav-menu1 .nav-link {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+nav.nav-menu1 {
+    margin-left: auto;
+}
+
+
+
+
+
+    .nav-menu1 { margin-left:auto; display:flex; gap:16px; align-items:center; }
+    .nav-menu1 .nav-link{ color:#fff; text-decoration:none; font-weight:600; font-size:15px; opacity:.95; }
+    .material-icons{ vertical-align:middle; cursor:pointer; }
+
+    /* small search box */
+    #searchBox{ display:none; margin-left:12px; background:#fff; padding:6px 10px; border-radius:8px; }
+    #searchBox input{ border:none; outline:none; width:180px; font-size:14px; }
+
+    /* =========================
+       SIDEBAR (sticky until footer)
+       ========================= */
+    /* container that will be sticky/fixed then absolute before footer */
+    .dept-menu {
+      position: fixed;  
+      height: 100%;            /* default absolute, JS will switch to fixed when needed */
+      top: 10px;
+      left: 18px;
+      width: var(--sidebar-width);
+      max-width: calc(var(--sidebar-width));
+      background: var(--soft-bg);
+      padding: 12px;
+      border-radius: 8px;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.06);
+      border-right: 3px solid #e0dede; /* vertical demarcator */
+      z-index: 900;
+      overflow: auto;
+      max-height: calc(100vh - var(--header-height) - 80px); /* helpful on small screens */
+    }
+
+    .dept-menu .sidebar-links a {
+      display:block;
+      padding:10px;
+      margin-bottom:8px;
+      text-decoration:none;
+      color:var(--accent-brown);
+      background:#fff;
+      border-radius:6px;
+      font-weight:600;
+      transition:transform .12s ease, background .12s ease;
+      box-shadow: 0 2px 6px rgba(12,12,12,0.03);
+    }
+    .dept-menu .sidebar-links a:hover{ transform:translateY(-2px); background:#f0eae3; }
+
+    /* =========================
+       MAIN PAGE CONTENT
+       ========================= */
+    .page-content{
+      margin-top: calc(var(--header-height) + 18px);
+      margin-left: calc(var(--sidebar-width) + 32px); /* leave room for sidebar + gap */
+      margin-right: 20px;
+      padding-bottom: 80px;
+      max-width: var(--content-max-width);
+    }
+
+    /* center content area and allow full-width panels */
+    .page-inner {
+      max-width: var(--content-max-width);
+      margin: 0 auto;
+    }
+
+    /* =========================
+       SLIDER — make layout predictable & JS-friendly
+       ========================= */
+    .slider-wrapper {
+      width: 100%;
+      margin-bottom: 18px;
+    }
+
+    .image-slider {
+      position: relative;
+      width: 100%;
+      height: 340px;               /* fixed height for consistent layout */
+      overflow: hidden;
+      border-radius: 10px;
+      background: #ddd;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+    }
+
+    /* slides (images) */
+    .image-slider .slide {
+      position: absolute;
+      inset: 0; /* top:0;right:0;bottom:0;left:0 */
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      opacity: 0;
+      transform: scale(1.02);
+      transition: opacity .6s ease, transform .6s ease;
+      z-index: 1;
+    }
+    .image-slider .slide.active {
+      opacity: 1;
+      transform: scale(1);
+      z-index: 2;
+    }
+
+    .slider-controls { margin-top:10px; display:flex; gap:8px; }
+    .btn.small{ background:#110901; color:#fff; padding:8px 12px; border-radius:6px; border:none; cursor:pointer; }
+
+    /* =========================
+       PANELS, HOD, TEXT
+       ========================= */
+    .panel { margin-top:20px; margin-bottom:12px; color: #1f1001; }
+    .panel-title { font-size:20px; font-weight:800; color:#2a1508; margin-bottom:8px; }
+    .hod-section {
+      background:#fff; border-radius:10px; padding:14px; box-shadow:0 6px 18px rgba(0,0,0,0.04);
+    }
+    .wrap-img { float:left; width:180px; margin:0 16px 12px 0; border-radius:8px; object-fit:cover; }
+
+    .hod-text { font-size:15.5px; color:#333; text-align:justify; line-height:1.65; margin:0; }
+
+    /* nice two-column for mission/vision */
+    .mission-vision { display:flex; gap:20px; margin-top:14px; flex-wrap:wrap; }
+    .mv-col { flex:1 1 45%; background:#fff; padding:14px; border-radius:10px; box-shadow:0 4px 12px rgba(0,0,0,0.03); }
+
+    /* news list */
+    #newsSection ul { padding-left:20px; color:#333; margin:0; }
+    #newsSection li { margin-bottom:6px; font-size:15px; }
+
+
+ .hamburger {
+            cursor: pointer;
+            font-size: 30px;
+            color: white;
+        }
+
+
+
+    /* =========================
+       FOOTER
+       ========================= */
+    .mme-footer{
+      background:#000; color:#fff; padding:50px 30px 40px; margin-top:30px;
+      border-radius:8px; margin-left: calc(var(--sidebar-width) + 32px);
+    }
+    .footer-container{ display:grid; gap:28px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+    .footer-logo{ width:160px; margin-bottom:12px; display:block; }
+    .footer-line{ width:120px; height:3px; background:#7b1fa2; margin:12px 0 18px; }
+    .footer-col a{ color:#ccc; display:block; text-decoration:none; margin:6px 0; }
+    .footer-bottom{ text-align:center; margin-top:18px; border-top:1px solid rgba(255,255,255,0.06); padding-top:14px; color:#cfcfcf; font-size:14px; }
+
+    /* small screens adjustments */
+    @media (max-width:900px){
+      :root{ --sidebar-width:150px; }
+      .dept-menu{ left:12px; width:150px; }
+      .page-content{ margin-left: calc(var(--sidebar-width) + 28px); }
+      .image-slider{ height:260px; }
+    }
+
+    @media (max-width:720px){
+      /* hide left desktop sidebar on small screens (mobile will use mobileMenu) */
+      .dept-menu{ display:none !important; }
+      .page-content{ margin-left: 16px; margin-right:16px; }
+      .mme-footer{ margin-left: 16px; margin-right:16px; border-radius:6px; }
+      #searchBox input{ width:120px; }
+    }
+
+    /* small visual helpers */
+    .muted{ color:var(--muted); font-size:13px; }
+  </style>
 </head>
-<body class="dashboard-body">
-  <header class="header">
-    <div class="header-left">
-      <button id="mobileMenuBtn" class="hamburger" aria-label="Open menu">☰</button>
-      <img src="images/best.png" alt="brand" class="logo" width="50" height="50" />
-      <div class="brand">
-        <div class="site-title">MME Students Portal</div>
-        <div class="site-sub">Materials &amp; Metallurgical Engineering</div>
-      </div>
+
+<body>
+
+  <!-- =========================
+       HEADER (fixed)
+       ========================= -->
+  <header class="main-header">
+    
+    <img src="images/best.png" class="dept-logo" alt="logo2">
+
+    <div class="brand">
+      <div class="site-title">MME Students Portal</div>
+      <div class="site-sub">Materials &amp; Metallurgical Engineering</div>
+   </div>
+
+    <nav id="navMenu1" class="nav-menu1">
+      <a class="nav-link" href="dashboard.html">Home</a>
+      <a class="nav-link" href="update.html">Updates</a>
+      <a class="nav-link" href="for.html">Gallery</a>
+      <a class="nav-link" href="#">About</a>
+    </nav>
+
+    <span id="openSearch" class="material-icons">search</span>
+
+    <div id="searchBox" class="search-box" aria-hidden="true">
+      <input type="text" id="searchInput" placeholder="Search dashboard...">
     </div>
 
-    <nav id="navMenu" class="nav-menu">
-      <a class="nav-link" href="dashboard.html">Home</a>
-      <a class="nav-link" href="#">Updates</a>
-      <a class="nav-link" href="#">Gallery</a>
-      <a class="nav-link" href="#">About</a>
-      <button id="logout" class="btn small danger">Logout</button>
-    </nav>
+    <span class="hamburger" id="hamburgerBtn">&#9776;</span>
   </header>
 
-  <main class="dashboard-main container-grid">
-    <section class="panel">
-      <div class="panel-head">
-        <h2>Student Profiles</h2>
-        <div class="panel-actions">
-          <button id="openAdd" class="btn small">+ Add</button>
-          <button id="importSample" class="btn small outline">Import sample</button>
-          <button id="clearStudents" class="btn small outline danger">Clear</button>
+  <!-- =========================
+       Mobile hamburger menu (unchanged)
+       ========================= -->
+
+      <!-- =========================
+         MOBILE HAMBURGER MENU
+         ========================= -->
+    <div id="mobile-Menu" class="mobi-menu">
+        <a href="dashboard.html">Home</a>
+        <a href="update.html">Updates</a>
+        <a href="for.html">Gallery</a>
+        <a href="#">About</a>
+        
+        <hr>
+        
+        <a href="student-profile.html">Student Profile</a>
+        <a href="form.html">Form</a>
+        <a href="staff.html">Staff</a>
+        <a href="#">Publications</a>
+        
+        <hr>
+        
+        <a href="admin-signin.html">Admin Sign-in</a>
+        <a href="payment.html">Payment</a>
+        <a href="chat.html">Chat</a>
+        <a href="index.html" id="logout">Logout</a>
+    </div>
+
+  <!-- =========================
+       LEFT SIDEBAR (sticky until footer)
+       ========================= -->
+  <aside class="dept-menu" id="deptMenu">
+    <nav class="sidebar-links">
+
+      <hr style="margin:12px 0; border:none; border-top:1px solid #eee;">
+      
+   
+      <hr style="margin:12px 0; border:none; border-top:1px solid #eee;">
+      
+   
+      <hr style="margin:12px 0; border:none; border-top:1px solid #eee;">
+      
+   
+    
+      <hr style="margin:12px 0; border:none; border-top:1px solid #eee;">
+      <a href="#" id="sidebarLogout">Publication</a>
+      <hr style="margin:12px 0; border:none; border-top:1px solid #eee;">
+      <a href="#" id="sidebarLogout">Research</a>
+
+      <hr style="margin:12px 0; border:none; border-top:1px solid #eee;">
+      <a href="#" id="sidebarLogout">Staff </a>
+      
+      <hr style="margin:12px 0; border:none; border-top:1px solid #eee;">
+      <a href="#" id="sidebarLogout"> Executives</a>
+      <hr style="margin:12px 0; border:none; border-top:1px solid #eee;">
+      <a href="index.html" id="sidebarLogout">Logout</a>
+    </nav>
+  </aside>
+
+  <!-- =========================
+       PAGE CONTENT (main column)
+       ========================= -->
+  <main class="page-content" id="mainContent">
+    <div class="page-inner">
+
+      <!-- SLIDER -->
+      <div class="slider-wrapper">
+        <div class="image-slider">
+          <!-- NOTE: admin.js expects .image-slider .slide elements and one .active (or it will default to 0) -->
+          <img src="images/z (2).jpg" class="slide active" alt="slide2">
+          <img src="images/b.jpg" class="slide" alt="slide1">
+          
+          <img src="images/a.png" class="slide" alt="slide3">
+          <img src="images/f.jpg" class="slide" alt="slide4">
+          <img src="images/d.png" class="slide" alt="slide5">
+          <img src="images/z (1).jpg" class="slide" alt="slide6">
+          <img src="images/z (2).jpg" class="slide" alt="slide7">
+          <img src="images/z (3).jpg" class="slide" alt="slide8">
+          <img src="images/z (4).jpg" class="slide" alt="slide9">
+                <img src="images/1 (2).png" class="slide" alt="slide10">
+                      <img src="images/1 (1).png" class="slide" alt="slide11">
+        </div>
+
+        <div class="slider-controls">
+          <button id="prevSlide" class="btn small">Prev</button>
+          <button id="nextSlide" class="btn small">Next</button>
         </div>
       </div>
 
-      <div class="controls">
-        <input id="search" type="search" placeholder="Search students (name, email, matric)" />
-      </div>
+      <!-- HOD SECTION -->
+      <section class="panel">
+        <h2 class="panel-title">Hod's Biography</h2>
+        <div class="hod-section">
+          <div></div><img src="images/e.PNG" class="wrap-img" alt="HOD"> <h2>Prof. Muriana Aremu</h2>
+          <p class="hod-text">
+            Engr. Prof. Muriana Raheed Aremu joined the service of FUT Minna on the 9th of November 2005 as a lecturer II. He rose through the ranks and attained the rank of a Professor on the 1st of Oct 2018. When the Department of Materials and Metallurgy was created on the 17th September, 2014, by 387th special Senate of FUT, Professor R.A. Muriana was selected from Mechanical Engineering Department as one of the pioneering staff of the Materials and Metallurgical Engineering Department. His first appointment as HOD of the department was from February 2020 to March 2021, while the current (Second) term started from 2nd of March, 2021.  He is the second HOD since the inception of the department.
 
-      <ul id="studentsList" class="students-list">
-        <li class="muted">Loading students…</li>
-      </ul>
-    </section>
+ 
 
-    <aside class="panel">
-      <div id="profile" class="profile-card">
-        <h3 class="panel-title">Selected Student</h3>
-        <div id="profileContent" class="profile-content muted"> Select a student to view profile. </div>
-      </div>
+Professor R.A. Muriana teaches courses in Materials Science and Engineering Application at both undergraduate and post graduate levels. He has handled/supervised numerous M.Eng/M.Tech and PhD theses, just as a good number of researches under his supervision are ongoing. The Professor and his group won grants from TETFUND (National Research Funds, NRF) and Federal Ministry Mine and Steel Development, Abuja.
 
-      <div class="panel" style="margin-top:18px;">
-        <h3 class="panel-title">Result Checker</h3>
-        <form id="resultForm" class="form-compact">
-          <input id="resultMatric" placeholder="Matric number" required />
-          <input id="resultCourse" placeholder="Course code (optional)" />
-          <button type="submit" class="btn">Check Results</button>
-        </form>
-        <div id="resultOutput" class="muted" style="margin-top:12px;">Enter matric to search results.</div>
-      </div>
+ 
 
-      <div class="panel" style="margin-top:18px;">
-        <h3 class="panel-title">Admin Portal</h3>
-        <div class="admin-box">
-          <p class="small">Quick admin actions (dev)</p>
-          <button id="exportStudents" class="btn small outline">Export (console)</button>
+Professor Muriana is not left out in the development of his immediate community, the university and the world at large. He has served a number of administrative duties which he carried out diligently.  He served as undergraduate level adviser for years, Departmental Computer Maintenance officer, Examination officer for Mech. Eng. Dept. as well as for Materials and Metallurgy Department.
+
+ 
+
+Professor Muriana is happily married with children </p>
         </div>
+      </section>
+    <!-- Mission / Vision -->
+      <div class="mission-vision">
+        <div class="panel mv-col" id="mission">
+          <h3 class="panel-title">Philosophy</h3>       
+
+<p>The philosophy of this programme is to attain the ultimate height in the training of high level ICT compliant material engineers. Such manpower should imbibe self-confidence, technical innovation based on sound scientific and technological knowledge to meet the daunting challenges of materials processing and application for the benefit of Nigerians and the World at large.</p></div></div>
+     
+          <!-- Mission / Vision -->
+      <div class="mission-vision">
+        <div class="panel mv-col" id="mission">
+          <h3 class="panel-title">Our Mission</h3>
+          <p>Providing high quality learning programme, training and research activities.
+
+Graduating students with required skills of national relevance to compete at international level.
+
+Attracting and developing high calibre faculty members for advancing cutting-edge research in materials engineering.</div>
+
+        <div class="panel mv-col" id="vision">
+          <h3 class="panel-title">Our Vision</h3>
+          <p>Our vision is to be an internationally recognized Centre of excellence for training, research and development in the field of Materials and Metallurgical Engineering.</div>
       </div>
-    </aside>
+
+      <!-- ANNOUNCEMENTS -->
+      <section class="panel" id="newsSection">
+        <h2 class="panel-title">Latest Announcements</h2>
+        <ul>
+          <li>2025 MME Symposium scheduled for March.</li>
+          <li>New laboratory equipment commissioned.</li>
+          <li>Student Industrial Training begins June.</li>
+        </ul>
+      </section>
+
+      <!-- Small internal footer image placeholder panel (keeps layout tidy) -->
+      <footer class="panel" style="margin-top:18px;">
+        <img src="best.PNG" alt="internal footer image" style="width:100%; border-radius:8px;">
+      </footer>
+    </div>
   </main>
 
-  <!-- Add / Edit modal -->
-  <div id="modal" class="modal hidden" role="dialog" aria-modal="true">
-    <div class="modal-content">
-      <h3>Add / Edit Student</h3>
-      <form id="addStudentForm" class="form-compact">
-        <input id="stuName" placeholder="Full name" required />
-        <input id="stuEmail" type="email" placeholder="Email" required />
-        <input id="stuMat" placeholder="Matric number" />
-        <select id="stuLevel"><option>100</option><option>200</option><option>300</option><option>400</option></select>
-        <div class="modal-actions">
-          <button type="submit" class="btn">Save</button>
-          <button type="button" id="modalClose" class="btn outline">Cancel</button>
-        </div>
-      </form>
-    </div>
-  </div>
+  <!-- =========================
+       SITE FOOTER (main FUTMINNA footer)
+       (Only one footer — placed inside body)
+       ========================= -->
+  <footer class="mme-footer" id="siteFooter">
+    <div class="footer-container">
+      <div class="footer-col">
+        <img src="images/footer.PNG" class="footer-logo" alt="FUTMINNA Logo">
+        <p>Main Campus, Gidan Kwano, P.M.B 65,<br>Minna, Niger State.</p>
+        <p>+234(0)</p>
+        <p>registrar@futminna.edu.ng</p>
+        <div class="footer-line"></div>
+      </div>
 
-  <script type="module" src="javas/app.js"></script>
+      <div class="footer-col">
+        <h3>Services</h3>
+        <div class="footer-line"></div>
+        <a href="#">Staff</a>
+        <a href="#">Student</a>
+        <a href="#">Alumni</a>
+      </div>
+
+      <div class="footer-col">
+        <h3>Campus Life</h3>
+        <div class="footer-line"></div>
+        <a href="#">Students Representative Council</a>
+        <a href="#">Sports/Clubs</a>
+      </div>
+
+      <div class="footer-col">
+        <h3>Other Links</h3>
+        <div class="footer-line"></div>
+        <a href="#">Library</a>
+        <a href="#">Calendar</a>
+        <a href="#">Contact Us</a>
+        <a href="#">Privacy Policy</a>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      © 2022 Federal University of Technology MINNA. All Rights Reserved.
+      <span class="powered"> | Powered by ITS, FUTMinna.</span>
+    </div>
+  </footer>
+
+  <!-- =========================
+       External app JS (keeps your firebase/auth and slider logic)
+       ========================= -->
+  <script type="module" src="javas/admin.js"></script>
+
+  <!-- =========================
+       Inline page JS: small helpers + sticky sidebar logic
+       ========================= -->
+  <script>
+       /* ---------------- Toggle Search ---------------- */
+        document.getElementById("openSearch").onclick = () => {
+            const box = document.getElementById("searchBox");
+            box.style.display = box.style.display === "flex" ? "none" : "flex";
+        };
+
+          // =========================
+        // HAMBURGER MENU FUNCTIONALITY
+        // =========================
+        const hamburgerBtn = document.getElementById('hamburgerBtn');
+        const mobileMenu = document.getElementById('mobile-Menu');
+        
+        // Toggle mobile menu when hamburger is clicked
+        hamburgerBtn.addEventListener('click', function(event) {
+            event.stopPropagation();
+            mobileMenu.style.display = mobileMenu.style.display === 'flex' ? 'none' : 'flex';
+        });
+        
+        // Close mobile menu when clicking outside of it
+        document.addEventListener('click', function(event) {
+            const isClickInsideMenu = mobileMenu.contains(event.target);
+            const isClickOnHamburger = hamburgerBtn.contains(event.target);
+            
+            if (!isClickInsideMenu && !isClickOnHamburger && mobileMenu.style.display === 'flex') {
+                mobileMenu.style.display = 'none';
+            }
+        });
+        
+        // Close mobile menu when a menu item is clicked (optional)
+        mobileMenu.addEventListener('click', function(event) {
+            if (event.target.tagName === 'A') {
+                mobileMenu.style.display = 'none';
+            }
+        });
+
+
+   /* ---------------- FULL SEARCH ENGINE ---------------- */
+        const searchInput = document.getElementById("searchInput");
+
+        searchInput.addEventListener("input", () => {
+            const term = searchInput.value.toLowerCase();
+
+            // elements to search
+            const searchTargets = document.querySelectorAll(
+                ".panel, .mission-vision, .slide, #newsSection"
+            );
+
+            searchTargets.forEach(el => {
+                const text = el.innerText.toLowerCase();
+                el.style.display = text.includes(term) ? "block" : "none";
+            });
+
+            // highlight matching words
+            highlightText(term);
+        });
+
+        function highlightText(term) {
+            const panels = document.querySelectorAll(".panel");
+
+            panels.forEach(panel => {
+                panel.innerHTML = panel.innerHTML.replace(/<span class="highlight">|<\/span>/g, "");
+
+                if (term.length < 2) return;
+
+                const regex = new RegExp(term, "gi");
+                panel.innerHTML = panel.innerHTML.replace(regex, match => `<span class="highlight">${match}</span>`);
+            });
+        }
+  
+
+
+    /* =========================
+       STICKY SIDEBAR (option B):
+       - becomes `position: fixed` under header while scrolling
+       - when it would overlap the footer it becomes absolute positioned above the footer
+       ========================= */
+    (function stickySidebar(){
+      const sidebar = document.getElementById("deptMenu");
+      const footer = document.getElementById("siteFooter");
+      if(!sidebar || !footer) return;
+
+      // store original left offset so we keep sidebar aligned
+      const sidebarRect = sidebar.getBoundingClientRect();
+      const origLeft = sidebarRect.left + window.scrollX;
+
+      function update(){
+        const headerHeight = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--header-height')) || 80;
+        const sidebarHeight = sidebar.offsetHeight;
+        const footerTop = footer.getBoundingClientRect().top + window.scrollY;
+        const scrollY = window.scrollY || window.pageYOffset;
+
+        // where the top of fixed sidebar would be (page Y)
+        const fixedTop = scrollY + headerHeight + 14; // 14px gap after header
+
+
+        // If we are above header area (not scrolled enough) -> absolute at top
+        const sidebarOriginalTop = parseInt(getComputedStyle(sidebar).top) || (headerHeight + 14);
+
+        if(fixedTop <= sidebarOriginalTop){
+          // keep initial absolute position
+          sidebar.style.position = "absolute";
+          sidebar.style.top = sidebarOriginalTop + "px";
+          sidebar.style.left = origLeft + "px";
+        } else {
+          // we scrolled down enough to "fix" the sidebar
+          if(fixedBottom + 20 < footerTop){
+            // safe to fix - won't overlap footer
+            sidebar.style.position = "fixed";
+            sidebar.style.top = headerHeight + 14 + "px";
+            // lock left so it doesn't jump
+            const pageLeft = sidebar.getBoundingClientRect().left;
+            sidebar.style.left = origLeft + "px";
+            // ensure width stays consistent
+            sidebar.style.width = getComputedStyle(sidebar).width;
+          } else {
+            // would overlap footer - place it absolute just above footer
+            const absoluteTop = (footerTop - sidebarHeight - 24); // 24px gap
+            sidebar.style.position = "absolute";
+            sidebar.style.top = Math.max( (headerHeight + 14), absoluteTop ) + "px";
+            sidebar.style.left = origLeft + "px";
+          }
+        }
+      }
+
+      // run on scroll/resize and on load
+      window.addEventListener("scroll", update, { passive:true });
+      window.addEventListener("resize", () => {
+        // recalc left because layout can change
+        update();
+      }, { passive:true });
+
+      // initial update after a tiny delay to ensure images/layout loaded
+      window.addEventListener("load", () => setTimeout(update, 120));
+      setTimeout(update, 120);
+    })();
+
+    /* ----------------- Sidebar logout wiring (keeps your existing logout handler) ----------------- */
+    const sidebarLogout = document.getElementById("sidebarLogout");
+    const logoutBtn = document.getElementById("logout");
+    // If you have a global doLogout in admin.js it will be used; otherwise fallback to redirect
+    function fallbackLogout(e){
+      e?.preventDefault();
+      try { window.doLogout?.(); } catch(e){ window.location.href = "index.html"; }
+    }
+    sidebarLogout?.addEventListener("click", fallbackLogout);
+    logoutBtn?.addEventListener("click", fallbackLogout);
+
+    /* =========================
+       NOTE about slider:
+       - Your external javas/admin.js already contains a sliderInit IIFE that controls
+         .image-slider .slide items and uses .active class.
+       - The CSS above ensures slides are positioned and transitions are smooth.
+       - If you prefer the slider controlled here instead, tell me and I'll move it
+         into this file (but I left the module-based admin.js intact as requested).
+       ========================= */
+
+  </script>
 </body>
 </html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Research — MME Portal</title>
+
+  <style>
+    :root{--brown:#3a1e02}
+    *{box-sizing:border-box} body{margin:0;font-family:Inter,Arial,sans-serif;background:#fff;color:#111}
+    .main-header{position:fixed;left:0;right:0;top:0;height:64px;background:var(--brown);color:#fff;display:flex;align-items:center;padding:8px 18px;z-index:999}
+    .brand img{height:48px;border-radius:6px}
+    .header-actions{margin-left:auto;display:flex;align-items:center;gap:8px}
+    .search-box{display:none;background:#fff;padding:6px 10px;border-radius:8px}
+    main{padding:90px 18px 40px}
+    .panel{background:#fff;padding:16px;border-radius:10px;box-shadow:0 6px 18px rgba(8,15,29,0.04)}
+    .research-list{display:grid;gap:12px}
+    .research-item{border-radius:8px;padding:12px;border:1px solid #eee;background:#fafafa}
+    footer{margin-top:18px}
+    .footer-img{width:100%;border-radius:8px}
+  </style>
+</head>
+<body>
+  <header class="main-header">
+    <div class="brand">
+      <img src="best3.png" alt="logo">
+      <div style="margin-left:8px"><strong>Research</strong><div style="font-size:12px;opacity:.9">MME Research Highlights</div></div>
+    </div>
+    <div class="header-actions">
+      <span id="openSearch">🔍</span>
+      <div id="searchBox" class="search-box"><input id="searchInput" placeholder="Search research..." /></div>
+      <span id="hamburgerBtn" class="hamburger">☰</span>
+    </div>
+  </header>
+
+  <nav id="mobileMenu" class="mobile-menu" aria-hidden="true">
+    <a href="student-profile.html">Student Profile</a>
+    <a href="admin.html">Admin</a>
+    <a href="admin-signin.html">Admin Sign In</a>
+    <a href="payment.html">Payment</a>
+    <a href="chat.html">Chat</a>
+    <a id="logout" href="#">Logout</a>
+  </nav>
+
+  <main>
+    <section class="panel">
+      <h2>Active Research Projects</h2>
+      <div class="research-list" id="researchList">
+        <div class="research-item"><strong>Project A:</strong> Advanced corrosion-resistant alloys — Lead: Prof. X</div>
+        <div class="research-item"><strong>Project B:</strong> Nano-structured coatings — Lead: Dr. Y</div>
+        <div class="research-item"><strong>Project C:</strong> Recycling metallurgical waste — Lead: Dr. Z</div>
+      </div>
+    </section>
+
+    <footer>
+      <img src="footer.PNG" alt="footer" class="footer-img">
+    </footer>
+  </main>
+
+  <script>
+    document.getElementById('openSearch').addEventListener('click', ()=> {
+      const sb = document.getElementById('searchBox'); sb.style.display = sb.style.display==='flex' ? 'none' : 'flex';
+    });
+    document.getElementById('hamburgerBtn').addEventListener('click', ()=> {
+      const m = document.getElementById('mobileMenu'); m.style.display = m.style.display==='flex' ? 'none' : 'flex';
+    });
+
+    // search filter
+    document.getElementById('searchInput').addEventListener('input', ()=> {
+      const q=document.getElementById('searchInput').value.trim().toLowerCase();
+      const items = Array.from(document.querySelectorAll('.research-item'));
+      items.forEach(i => i.style.display = q==='' ? 'block' : (i.innerText.toLowerCase().includes(q) ? 'block' : 'none'));
+    });
+
+    document.getElementById('logout').addEventListener('click', e=>{ e.preventDefault(); localStorage.removeItem('mme_admin_signed_in'); window.location.href='index.html'; });
+  </script>
+</body>
+</html>

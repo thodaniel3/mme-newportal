@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Student Profile — MME Portal</title>
+
+  <style>
+    :root{--brown:#3a1e02;--muted:#6b7280}
+    *{box-sizing:border-box} body{margin:0;font-family:Inter,Arial,sans-serif;background:#fafafa;color:#111}
+    .main-header{position:fixed;left:0;right:0;top:0;height:64px;background:var(--brown);color:#fff;display:flex;align-items:center;padding:8px 18px;z-index:999}
+    .brand{display:flex;align-items:center;gap:12px}
+    .brand img{height:48px;border-radius:6px}
+    .brand .title{font-weight:800;font-size:16px}
+    .header-actions{margin-left:auto;display:flex;align-items:center;gap:10px}
+    .search-box{display:none;background:#fff;padding:6px 10px;border-radius:8px}
+    .search-box input{border:0;outline:none;font-size:14px}
+    .hamburger{font-size:26px;color:#fff;cursor:pointer}
+    .mobile-menu{position:fixed;top:66px;right:12px;background:var(--brown);color:#fff;padding:12px;border-radius:8px;display:none;flex-direction:column;gap:8px;z-index:9999}
+    .mobile-menu a{color:#fff;text-decoration:none;padding:6px 2px;border-bottom:1px solid rgba(255,255,255,0.06)}
+    main{padding:90px 18px 40px}
+    .profile-panel{display:flex;gap:18px;background:#fff;padding:16px;border-radius:10px;box-shadow:0 6px 18px rgba(8,15,29,0.04)}
+    .avatar{width:220px}
+    .avatar img{width:100%;border-radius:10px;object-fit:cover}
+    .info h2{margin:0 0 8px}
+    .info p{margin:6px 0;color:var(--muted)}
+    footer{margin-top:18px}
+    .footer-img{width:100%;border-radius:8px}
+    .highlight{background:#fff7b2;padding:2px 4px;border-radius:4px}
+    @media(max-width:780px){.profile-panel{flex-direction:column}.avatar{width:100%}}
+  </style>
+</head>
+<body>
+  <header class="main-header">
+    <div class="brand">
+      <img src="best3.png" alt="logo">
+      <div>
+        <div class="title">MME Student Profile</div>
+        <div style="font-size:12px;opacity:.9">Materials &amp; Metallurgical Engineering</div>
+      </div>
+    </div>
+
+    <div class="header-actions">
+      <span id="openSearch">🔍</span>
+      <div id="searchBox" class="search-box"><input id="searchInput" placeholder="Search profile..." /></div>
+      <span id="hamburgerBtn" class="hamburger">☰</span>
+    </div>
+  </header>
+
+  <nav id="mobileMenu" class="mobile-menu" aria-hidden="true">
+    <a href="student-profile.html">Student Profile</a>
+    <a href="admin.html">Admin</a>
+    <a href="admin-signin.html">Admin Sign In</a>
+    <a href="payment.html">Payment</a>
+    <a href="chat.html">Chat</a>
+    <a id="logout" href="#">Logout</a>
+  </nav>
+
+  <main>
+    <section class="profile-panel" id="profilePanel">
+      <div class="avatar"><img src="best3.png" alt="avatar"></div>
+      <div class="info">
+        <h2 id="stuName">John Doe</h2>
+        <p id="stuMat">Matric: MME/12345</p>
+        <p id="stuEmail">Email: john.doe@example.com</p>
+        <p id="stuLevel">Level: 300</p>
+
+        <div style="margin-top:12px">
+          <h3>Inbox</h3>
+          <div id="studentInbox" style="padding:8px;background:#fbfbfb;border-radius:8px;color:#555">No messages yet.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel" id="academics">
+      <h3>Academic Info</h3>
+      <p>Department: Materials & Metallurgical Engineering</p>
+      <p>Current GPA: 4.01</p>
+    </section>
+
+    <footer>
+      <img src="footer.PNG" alt="footer" class="footer-img">
+    </footer>
+  </main>
+
+  <script>
+    // header toggles & search filter
+    const openSearch = document.getElementById('openSearch');
+    const searchBox = document.getElementById('searchBox');
+    const searchInput = document.getElementById('searchInput');
+    const hamb = document.getElementById('hamburgerBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    openSearch.addEventListener('click', ()=> searchBox.style.display = searchBox.style.display === 'flex' ? 'none' : 'flex');
+    hamb.addEventListener('click', ()=> mobileMenu.style.display = mobileMenu.style.display==='flex' ? 'none' : 'flex');
+
+    // page-level search: filters panels
+    searchInput && searchInput.addEventListener('input', ()=> {
+      const q = searchInput.value.trim().toLowerCase();
+      const targets = [document.getElementById('profilePanel'), document.getElementById('academics')];
+      targets.forEach(t => {
+        const txt = t.innerText.toLowerCase();
+        t.style.display = q === '' ? 'block' : (txt.includes(q) ? 'block' : 'none');
+        if(q.length>1){ t.innerHTML = t.innerHTML.replace(/<span class="highlight">|<\/span>/g,''); t.innerHTML = t.innerHTML.replace(new RegExp(q,'gi'), m => `<span class="highlight">${m}</span>`); }
+      });
+    });
+
+    document.getElementById('logout').addEventListener('click', e=>{ e.preventDefault(); localStorage.removeItem('mme_admin_signed_in'); window.location.href='index.html'; });
+  </script>
+</body>
+</html>

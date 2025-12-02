@@ -1,0 +1,132 @@
+<!-- admin-signin.html
+  Simple admin sign-in page (single-file).
+  IMPORTANT (Firebase setup steps):
+  1. Create a Firebase project at https://console.firebase.google.com/
+  2. In Project settings -> General -> Add web app -> register and copy the Firebase config object
+     (apiKey, authDomain, projectId, storageBucket, messagingSenderId, appId).
+  3. In the code below replace the firebaseConfig placeholder with your actual config object.
+  4. In Firebase Console enable Firestore and Storage (for the admin page / updates).
+  5. For testing, you can use lenient rules; for production secure them properly.
+
+  NOTE: This sign-in file uses CLIENT-SIDE check only for the single allowed credentials you provided:
+    email: mme.student123@gmail.com
+    password: mmestudent@123
+
+  This is fine for a small internal tool or learning project, but not secure for a real production system.
+-->
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Admin Sign In — MME Portal</title>
+  <style>
+    :root{
+      --brand:#3a1e02;
+      --bg:#f4f6f8;
+      --card:#ffffff;
+    }
+    *{box-sizing:border-box}
+    body{ margin:0; font-family:Arial,Helvetica,sans-serif; background:var(--bg); color:#222; }
+    header{
+      height:70px; background:var(--brand); color:#fff; display:flex; align-items:center; gap:14px;
+      padding:0 18px; position:fixed; top:0; left:0; right:0; z-index:50;
+    }
+    header .brand-title{ font-weight:700; font-size:18px }
+    .container{ max-width:980px; margin:110px auto 40px; padding:0 18px; }
+    .card{ background:var(--card); padding:22px; border-radius:8px; box-shadow:0 8px 30px rgba(0,0,0,0.06); max-width:420px; margin:0 auto; }
+    .card h2{ color:var(--brand); text-align:center; margin-bottom:12px; }
+    label{ display:block; margin-top:12px; font-size:14px; color:#333; }
+    input[type="email"], input[type="password"]{
+      width:100%; padding:10px 12px; margin-top:8px; border-radius:6px; border:1px solid #ddd; font-size:15px;
+    }
+    .btn{ display:inline-block; margin-top:16px; width:100%; padding:12px; border-radius:6px; background:var(--brand); color:#fff; border:none; font-weight:700; cursor:pointer; }
+    .muted{ color:#666; font-size:13px; margin-top:8px; text-align:center; }
+    .error{ color:#b00020; margin-top:10px; text-align:center; }
+    .footerNote{ font-size:12px; color:#555; margin-top:16px; text-align:center; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div style="display:flex;align-items:center;gap:10px">
+    <img src="images/best.png" alt="logo" style="width:44px;height:44px;border-radius:6px;object-fit:cover">
+    <div>
+      <div class="brand-title">MME Students Portal</div>
+      <div style="font-size:12px;opacity:0.85">Materials & Metallurgical Engineering</div>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+  <div class="card">
+    <h2>Admin Sign In</h2>
+
+    <form id="signinForm" onsubmit="return false;">
+      <label for="email">Admin Email</label>
+      <input id="email" type="email" placeholder="admin@example.com" required>
+
+      <label for="password">Password</label>
+      <input id="password" type="password" placeholder="password" required>
+
+      <button id="signInBtn" class="btn">Sign In</button>
+
+      <p id="message" class="muted">Use admin email and password to login.</p>
+      <p id="error" class="error" style="display:none"></p>
+    </form>
+  <p class="bottom-text">
+      Already have an account? <a href="index.html">Login</a>
+    </p>
+    <p class="footerNote">This is a beginner demo. For real projects use Firebase Authentication or a secure backend.</p>
+  </div>
+</main>
+
+<script>
+/*
+  CLIENT-SIDE AUTH (ONLY FOR THIS DEMO)
+  Allowed credentials (from your request):
+    email: mme.student123@gmail.com
+    password: mmestudent@123
+
+  On successful login we set localStorage.isAdmin = 'true' and redirect to admin.html
+*/
+const allowedEmail = "mme.student123@gmail.com";
+const allowedPassword = "mmestudent@123";
+
+const signInBtn = document.getElementById('signInBtn');
+const errorP = document.getElementById('error');
+const msg = document.getElementById('message');
+
+signInBtn.addEventListener('click', () => {
+  errorP.style.display = 'none';
+  const email = document.getElementById('email').value.trim();
+  const password = document.getElementById('password').value;
+
+  if (!email || !password) {
+    errorP.textContent = 'Please enter email and password.';
+    errorP.style.display = 'block';
+    return;
+  }
+
+  // Simple credential check (client-side)
+  if (email.toLowerCase() === allowedEmail.toLowerCase() && password === allowedPassword) {
+    // mark admin as logged in (simple)
+    localStorage.setItem('isAdmin', 'true');
+    // redirect to admin page
+    window.location.href = 'admin.html';
+  } else {
+    errorP.textContent = 'Invalid email or password.';
+    errorP.style.display = 'block';
+  }
+});
+
+// If already logged in, send to admin page
+if (localStorage.getItem('isAdmin') === 'true') {
+  // optional: redirect immediately if admin already signed in
+  // window.location.href = 'admin.html';
+}
+</script>
+
+</body>
+</html>
