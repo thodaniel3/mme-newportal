@@ -525,6 +525,29 @@ img{
 
 
 
+    /* small screens adjustments */
+    @media (max-width:900px){
+      :root{ --sidebar-width:150px; }
+      .dept-menu{ left:12px; width:150px; }
+      .page-content{ margin-left: calc(var(--sidebar-width) + 28px); }
+      .image-slider{ height:260px; }
+    }
+
+    @media (max-width:720px){
+      /* hide left desktop sidebar on small screens (mobile will use mobileMenu) */
+      .dept-menu{ display:none !important; }
+      .page-content{ margin-left: 16px; margin-right:16px; }
+      .mme-footer{ margin-left: 16px; margin-right:16px; border-radius:6px; }
+      #searchBox input{ width:120px; }
+    }
+
+    /* small visual helpers */
+    .muted{ color:var(--muted); font-size:13px; }
+
+
+
+
+
 
 
 
