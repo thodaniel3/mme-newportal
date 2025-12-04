@@ -22,8 +22,8 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 
 /* ---------- Admin credentials you asked for (local fallback) ---------- */
-const ADMIN_EMAIL = "mme.student123@gmail.com";
-const ADMIN_PASSWORD = "mmestudent@123";
+const ADMIN_EMAIL = "adminmmeportal@futminna.edu.ng";
+const ADMIN_PASSWORD = "adminmmeportal@123";
 
 /* ---------- DOM elements ---------- */
 const adminLink = document.getElementById("adminLink");
