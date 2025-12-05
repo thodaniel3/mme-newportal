@@ -8,382 +8,315 @@
   <!-- Material Icons -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-  <style>
-    /* =========================
-       GLOBAL & TYPOGRAPHY
-       ========================= */
-    :root{
-      --accent-brown:#110901;
-      --soft-bg:#faf8f8;
-      --muted:#6b6b6b;
-      --content-max-width:1100px;
-      --sidebar-width:180px;
-      --header-height:80px; /* used by JS too */
-    }
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family: "Segoe UI", Roboto, Arial, Helvetica, sans-serif;
-      -webkit-font-smoothing:antialiased;
-      background:#f5f5f7;
-      color:#222;
-      line-height:1.5;
-    }
-    a{color:inherit}
-
-
-
-
-
-
-
-        /* =========================
-           GLOBAL STYLES
-           ========================= */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Roboto, Arial, sans-serif;
-        }
-
-        body {
-            background-color: #f5f5f7;
-            color: #222;
-            line-height: 1.5;
-        }
-
-        /* =========================
-           HEADER STYLES
-           ========================= */
-        .main-header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 80px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 10px 18px;
-            background: #110901;
-            color: #fff;
-            z-index: 1100;
-            box-shadow: 0 6px 18px rgba(0,0,0,0.18);
-        }
-
-        .brand {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .site-title {
-            font-weight: 700;
-            font-size: 18px;
-        }
-
-        .site-sub {
-            font-size: 12px;
-            opacity: .85;
-            margin-top: 2px;
-        }
-
-        /* =========================
-           HAMBURGER ICON
-           ========================= */
-        .hamburger {
-            cursor: pointer;
-            font-size: 30px;
-            color: white;
-            z-index: 1200;
-        }
-
-        /* =========================
-           MOBILE MENU STYLES
-           ========================= */
-        .mobi-menu {
-            display: none;
-            position: fixed;
-            top: 80px;
-            right: 0;
-            width: 280px;
-            height: calc(100vh - 80px);
-            background: #fff;
-            flex-direction: column;
-            padding: 20px 0;
-            z-index: 1100;
-            box-shadow: -5px 0 15px rgba(0,0,0,0.2);
-            overflow-y: auto;
-        }
-
-        .mobi-menu a {
-            color: #333;
-            text-decoration: none;
-            padding: 14px 25px;
-            margin: 0 15px 8px;
-            border-radius: 6px;
-            transition: background 0.3s ease;
-            font-weight: 500;
-            font-size: 15px;
-            display: flex;
-            align-items: center;
-        }
-
-        .mobi-menu a:hover {
-            background: #f0f0f0;
-        }
-
-        .mobi-menu hr {
-            margin: 15px 20px;
-            border: none;
-            border-top: 1px solid #e0e0e0;
-        }
-
-        /* =========================
-           CONTENT AREA
-           ========================= */
-        .page-content {
-            margin-top: 100px;
-            padding: 20px;
-            max-width: 1100px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .panel {
-            background: #fff;
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-        }
-
-        .panel-title {
-            font-size: 20px;
-            font-weight: 800;
-            color: #2a1508;
-            margin-bottom: 15px;
-        }
-
-        /* =========================
-           RESPONSIVE STYLES
-           ========================= */
-        @media (max-width: 720px) {
-            .mobi-menu {
-                width: 100%;
-            }
-        }
-    
-
-
-
-
-
-
-
-
-
-
-    /* =========================
-       HEADER (fixed)
-       ========================= */
-    .main-header{
-      position:fixed;
-      top:0;left:0;right:0;
-      height:var(--header-height);
-      display:flex;
-      align-items:center;
-      gap:12px;
-      padding:10px 18px;
-      background:var(--accent-brown);
-      color:#fff;
-      z-index:1100;
-      box-shadow:0 6px 18px rgba(0,0,0,0.18);
-    }
-    .dept-logo{ width:50px; height:50px; border-radius:8px; object-fit:cover; }
-    .brand .site-title{ font-weight:700; font-size:18px; }
-    .brand .site-sub{ font-size:12px; opacity:.85; margin-top:2px; }
-
-.nav-menu1 {
-    display: flex;
-    gap: 15px; /* spacing between links */
-    align-items: center;
+  <style>/* =========================================================
+   RESET + GLOBAL COLORS
+   ========================================================= */
+:root{
+    --accent-brown:#110901;
+    --soft-bg:#faf8f8;
+    --muted:#6b6b6b;
+    --content-max-width:1100px;
+    --sidebar-width:180px;
+    --header-height:80px;
 }
 
-.nav-menu1 .nav-link {
-    color: white;
-    text-decoration: none;
-    font-weight: 500;
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:"Segoe UI",Roboto,Arial,sans-serif;
 }
 
-nav.nav-menu1 {
-    margin-left: auto;
+body{
+    background:#f5f5f7;
+    color:#222;
+    line-height:1.5;
 }
 
+a{ text-decoration:none; color:inherit; }
 
+/* =========================================================
+   HEADER
+   ========================================================= */
+.main-header{
+    position:fixed;
+    top:0; left:0; right:0;
+    height:var(--header-height);
+    background:var(--accent-brown);
+    color:#fff;
+    padding:10px 18px;
+    display:flex;
+    align-items:center;
+    z-index:1100;
+    box-shadow:0 6px 18px rgba(0,0,0,0.2);
+}
 
+.dept-logo{
+    width:48px; height:48px;
+    border-radius:8px;
+    object-fit:cover;
+}
 
+.brand{ margin-left:8px; }
+.site-title{ font-weight:700; font-size:18px; }
+.site-sub{ font-size:12px; opacity:.8; }
 
-    .nav-menu1 { margin-left:auto; display:flex; gap:16px; align-items:center; }
-    .nav-menu1 .nav-link{ color:#fff; text-decoration:none; font-weight:600; font-size:15px; opacity:.95; }
-    .material-icons{ vertical-align:middle; cursor:pointer; }
+.nav-menu1{
+    margin-left:auto;
+    display:flex;
+    gap:18px;
+    align-items:center;
+}
 
-    /* small search box */
-    #searchBox{ display:none; margin-left:12px; background:#fff; padding:6px 10px; border-radius:8px; }
-    #searchBox input{ border:none; outline:none; width:180px; font-size:14px; }
+.nav-menu1 .nav-link{
+    color:white;
+    font-weight:600;
+    font-size:15px;
+}
 
-    /* =========================
-       SIDEBAR (sticky until footer)
-       ========================= */
-    /* container that will be sticky/fixed then absolute before footer */
-    .dept-menu {
-      position: fixed;  
-      height: 100%;            /* default absolute, JS will switch to fixed when needed */
-      top: 10px;
-      left: 18px;
-      width: var(--sidebar-width);
-      max-width: calc(var(--sidebar-width));
-      background: var(--soft-bg);
-      padding: 12px;
-      border-radius: 8px;
-      box-shadow: 0 6px 16px rgba(0,0,0,0.06);
-      border-right: 3px solid #e0dede; /* vertical demarcator */
-      z-index: 900;
-      overflow: auto;
-      max-height: calc(100vh - var(--header-height) - 80px); /* helpful on small screens */
-    }
+.hamburger{
+    cursor:pointer;
+    font-size:30px;
+    color:white;
+    margin-left:10px;
+}
 
-    .dept-menu .sidebar-links a {
-      display:block;
-      padding:10px;
-      margin-bottom:8px;
-      text-decoration:none;
-      color:var(--accent-brown);
-      background:#fff;
-      border-radius:6px;
-      font-weight:600;
-      transition:transform .12s ease, background .12s ease;
-      box-shadow: 0 2px 6px rgba(12,12,12,0.03);
-    }
-    .dept-menu .sidebar-links a:hover{ transform:translateY(-2px); background:#f0eae3; }
+#searchBox{
+    display:none;
+    margin-left:12px;
+    background:white;
+    padding:6px 10px;
+    border-radius:6px;
+}
 
-    /* =========================
-       MAIN PAGE CONTENT
-       ========================= */
+#searchBox input{
+    border:none;
+    outline:none;
+    width:180px;
+}
+
+/* =========================================================
+   MOBILE MENU
+   ========================================================= */
+.mobi-menu{
+    display:none;
+    position:fixed;
+    top:var(--header-height);
+    right:0;
+    width:280px;
+    height:calc(100vh - var(--header-height));
+    background:#fff;
+    padding-top:10px;
+    flex-direction:column;
+    overflow-y:auto;
+    z-index:1200;
+    box-shadow:-4px 0 14px rgba(0,0,0,0.2);
+}
+
+.mobi-menu a{
+    padding:14px 22px;
+    margin:4px 10px;
+    border-radius:6px;
+    color:#333;
+    font-weight:500;
+}
+
+.mobi-menu a:hover{
+    background:#efefef;
+}
+
+/* FULL WIDTH ON SMALL PHONES */
+@media(max-width:720px){
+  .mobi-menu{ width:100%; }
+}
+
+/* =========================================================
+   SIDEBAR (DESKTOP ONLY)
+   ========================================================= */
+.dept-menu{
+    position:fixed;
+    top:100px;
+    left:18px;
+    width:var(--sidebar-width);
+    background:#fff;
+    padding:14px;
+    border-radius:10px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.06);
+    max-height:calc(100vh - 140px);
+    overflow:auto;
+    z-index:900;
+}
+
+.sidebar-links a{
+    display:block;
+    background:#fafafa;
+    padding:10px;
+    margin-bottom:10px;
+    border-radius:6px;
+    font-weight:600;
+    color:#110901;
+    box-shadow:0 1px 4px rgba(0,0,0,0.05);
+}
+
+/* HIDE SIDEBAR ON SMALL SCREENS */
+@media(max-width:900px){
+    :root{ --sidebar-width:150px; }
+}
+
+@media(max-width:720px){
+    .dept-menu{ display:none; }
+}
+
+/* =========================================================
+   PAGE CONTENT
+   ========================================================= */
+.page-content{
+    margin-top:calc(var(--header-height) + 15px);
+    margin-left:calc(var(--sidebar-width) + 30px);
+    margin-right:20px;
+    max-width:var(--content-max-width);
+}
+
+.page-inner{
+    max-width:var(--content-max-width);
+    margin:auto;
+}
+
+/* REMOVE SIDEBAR SPACE ON SMALL DEVICES */
+@media(max-width:720px){
     .page-content{
-      margin-top: calc(var(--header-height) + 18px);
-      margin-left: calc(var(--sidebar-width) + 32px); /* leave room for sidebar + gap */
-      margin-right: 20px;
-      padding-bottom: 80px;
-      max-width: var(--content-max-width);
+        margin-left:15px;
+        margin-right:15px;
     }
+}
 
-    /* center content area and allow full-width panels */
-    .page-inner {
-      max-width: var(--content-max-width);
-      margin: 0 auto;
+/* =========================================================
+   SLIDER
+   ========================================================= */
+.slider-wrapper{
+    width:100%;
+    margin-bottom:20px;
+}
+
+.image-slider{
+    width:100%;
+    height:340px;
+    overflow:hidden;
+    border-radius:12px;
+    position:relative;
+    background:#ddd;
+}
+
+.image-slider .slide{
+    position:absolute;
+    inset:0;
+    width:100%; height:100%;
+    object-fit:cover;
+    opacity:0;
+    transform:scale(1.05);
+    transition:opacity .5s, transform .5s;
+}
+
+.slide.active{
+    opacity:1;
+    transform:scale(1);
+}
+
+/* MOBILE SLIDER HEIGHT */
+@media(max-width:650px){
+    .image-slider{ height:230px; }
+}
+
+/* =========================================================
+   HOD SECTION
+   ========================================================= */
+.panel{
+    background:#fff;
+    border-radius:10px;
+    padding:18px;
+    margin:15px 0;
+    box-shadow:0 2px 10px rgba(0,0,0,0.06);
+}
+
+.panel-title{
+    font-size:20px;
+    font-weight:800;
+    margin-bottom:10px;
+}
+
+.wrap-img{
+    float:left;
+    width:170px;
+    margin:0 14px 12px 0;
+    border-radius:8px;
+    object-fit:cover;
+}
+
+/* MOBILE IMAGE FIX */
+@media(max-width:650px){
+    .wrap-img{
+        float:none;
+        width:100%;
+        margin:0 0 15px 0;
     }
+}
 
-    /* =========================
-       SLIDER — make layout predictable & JS-friendly
-       ========================= */
-    .slider-wrapper {
-      width: 100%;
-      margin-bottom: 18px;
+.hod-text{
+    font-size:15.5px;
+    text-align:justify;
+}
+
+/* =========================================================
+   MISSION / VISION
+   ========================================================= */
+.mission-vision{
+    display:flex;
+    flex-wrap:wrap;
+    gap:18px;
+}
+
+.mv-col{
+    flex:1 1 45%;
+    background:#fff;
+    padding:14px;
+    border-radius:10px;
+    box-shadow:0 1px 8px rgba(0,0,0,0.05);
+}
+
+@media(max-width:650px){
+    .mv-col{
+        flex:1 1 100%;
     }
+}
 
-    .image-slider {
-      position: relative;
-      width: 100%;
-      height: 340px;               /* fixed height for consistent layout */
-      overflow: hidden;
-      border-radius: 10px;
-      background: #ddd;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.06);
-    }
+/* =========================================================
+   FOOTER
+   ========================================================= */
+.mme-footer{
+    margin-left:calc(var(--sidebar-width) + 30px);
+    background:#000;
+    color:#fff;
+    padding:40px 25px;
+    border-radius:10px;
+}
 
-    /* slides (images) */
-    .image-slider .slide {
-      position: absolute;
-      inset: 0; /* top:0;right:0;bottom:0;left:0 */
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      opacity: 0;
-      transform: scale(1.02);
-      transition: opacity .6s ease, transform .6s ease;
-      z-index: 1;
-    }
-    .image-slider .slide.active {
-      opacity: 1;
-      transform: scale(1);
-      z-index: 2;
-    }
+.footer-container{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:25px;
+}
 
-    .slider-controls { margin-top:10px; display:flex; gap:8px; }
-    .btn.small{ background:#110901; color:#fff; padding:8px 12px; border-radius:6px; border:none; cursor:pointer; }
+.footer-logo{
+    width:150px;
+    margin-bottom:10px;
+}
 
-    /* =========================
-       PANELS, HOD, TEXT
-       ========================= */
-    .panel { margin-top:20px; margin-bottom:12px; color: #1f1001; }
-    .panel-title { font-size:20px; font-weight:800; color:#2a1508; margin-bottom:8px; }
-    .hod-section {
-      background:#fff; border-radius:10px; padding:14px; box-shadow:0 6px 18px rgba(0,0,0,0.04);
-    }
-    .wrap-img { float:left; width:180px; margin:0 16px 12px 0; border-radius:8px; object-fit:cover; }
-
-    .hod-text { font-size:15.5px; color:#333; text-align:justify; line-height:1.65; margin:0; }
-
-    /* nice two-column for mission/vision */
-    .mission-vision { display:flex; gap:20px; margin-top:14px; flex-wrap:wrap; }
-    .mv-col { flex:1 1 45%; background:#fff; padding:14px; border-radius:10px; box-shadow:0 4px 12px rgba(0,0,0,0.03); }
-
-    /* news list */
-    #newsSection ul { padding-left:20px; color:#333; margin:0; }
-    #newsSection li { margin-bottom:6px; font-size:15px; }
-
-
- .hamburger {
-            cursor: pointer;
-            font-size: 30px;
-            color: white;
-        }
-
-
-
-    /* =========================
-       FOOTER
-       ========================= */
+/* MOBILE FOOTER WIDTH FIX */
+@media(max-width:720px){
     .mme-footer{
-      background:#000; color:#fff; padding:50px 30px 40px; margin-top:30px;
-      border-radius:8px; margin-left: calc(var(--sidebar-width) + 32px);
+        margin:20px 15px;
     }
-    .footer-container{ display:grid; gap:28px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
-    .footer-logo{ width:160px; margin-bottom:12px; display:block; }
-    .footer-line{ width:120px; height:3px; background:#7b1fa2; margin:12px 0 18px; }
-    .footer-col a{ color:#ccc; display:block; text-decoration:none; margin:6px 0; }
-    .footer-bottom{ text-align:center; margin-top:18px; border-top:1px solid rgba(255,255,255,0.06); padding-top:14px; color:#cfcfcf; font-size:14px; }
-
-    /* small screens adjustments */
-    @media (max-width:900px){
-      :root{ --sidebar-width:150px; }
-      .dept-menu{ left:12px; width:150px; }
-      .page-content{ margin-left: calc(var(--sidebar-width) + 28px); }
-      .image-slider{ height:260px; }
-    }
-
-    @media (max-width:720px){
-      /* hide left desktop sidebar on small screens (mobile will use mobileMenu) */
-      .dept-menu{ display:none !important; }
-      .page-content{ margin-left: 16px; margin-right:16px; }
-      .mme-footer{ margin-left: 16px; margin-right:16px; border-radius:6px; }
-      #searchBox input{ width:120px; }
-    }
-
-    /* small visual helpers */
-    .muted{ color:var(--muted); font-size:13px; }
+}
   </style>
 </head>
 
